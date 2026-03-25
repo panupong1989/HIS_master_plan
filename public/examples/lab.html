@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ethereal Guardian HIS - Lab Workstation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800;900&amp;family=Sarabun:wght@300;400;500;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed": "#001e2d",
+                        "tertiary-fixed": "#ffdcbf",
+                        "on-background": "#171c1f",
+                        "on-tertiary-fixed-variant": "#693c04",
+                        "outline-variant": "#c5c5d1",
+                        "secondary": "#0f658b",
+                        "tertiary": "#442400",
+                        "secondary-fixed-dim": "#8bcef9",
+                        "secondary-fixed": "#c6e7ff",
+                        "on-primary-fixed-variant": "#31437f",
+                        "on-surface-variant": "#454650",
+                        "surface-bright": "#f6fafe",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#eaeef2",
+                        "outline": "#757681",
+                        "on-tertiary-fixed": "#2d1600",
+                        "inverse-primary": "#b6c4ff",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2c3e7a",
+                        "on-primary-container": "#9aabef",
+                        "inverse-surface": "#2c3134",
+                        "primary": "#132763",
+                        "surface-container-high": "#e4e9ed",
+                        "surface-variant": "#dfe3e7",
+                        "surface-container-highest": "#dfe3e7",
+                        "secondary-container": "#91d4ff",
+                        "on-secondary-fixed-variant": "#004c6b",
+                        "surface-container-low": "#f0f4f8",
+                        "surface": "#f6fafe",
+                        "on-secondary-container": "#005c81",
+                        "on-surface": "#171c1f",
+                        "inverse-on-surface": "#edf1f5",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#dce1ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f6fafe",
+                        "on-primary-fixed": "#00164f",
+                        "tertiary-container": "#633700",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#d6dade",
+                        "surface-tint": "#4a5b99",
+                        "on-tertiary-container": "#e1a163",
+                        "tertiary-fixed-dim": "#fcb978"
+                    },
+                    fontFamily: {
+                        "headline": ["Be Vietnam Pro"],
+                        "body": ["Sarabun"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1.25rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background min-h-screen overflow-x-hidden">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-white/15 dark:bg-slate-900/15 backdrop-blur-xl shadow-sm">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black text-[#132763] dark:text-white font-headline">Ethereal Guardian HIS</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[#132763]/60 dark:text-white/60 font-headline font-bold tracking-tight text-lg transition-colors hover:bg-white/20" href="#">Dashboard</a>
+<a class="text-[#132763]/60 dark:text-white/60 font-headline font-bold tracking-tight text-lg transition-colors hover:bg-white/20" href="#">Patient Search</a>
+<a class="text-[#132763]/60 dark:text-white/60 font-headline font-bold tracking-tight text-lg transition-colors hover:bg-white/20" href="#">Emergency</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-[#132763] p-2 rounded-full hover:bg-white/20 cursor-pointer">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<span class="material-symbols-outlined text-[#132763] p-2 rounded-full hover:bg-white/20 cursor-pointer">settings</span>
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden shadow-sm">
+<img alt="User Profile Avatar" data-alt="professional medical staff portrait with blurred hospital background and soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARv0xr9Z4uXelbLwtE-oIgEelaZjsmcAaO3mPy5KL4vm_sN3PQmU3kcrNF171YctD6leVfUazcG4QU00MeVlOFT0u-4NrRWjdcB6EPekVcvTZTXIv-FbIH3meY9ua6-Yyqh0GWMay6dg8Yr9gohzMB0FVbF9xvuous8ws9AFoSzc6vIXi8ygS22c7eVI4cr-XExcHtzNzBr7W8VVn8-CzyMd_CJyShQl9vHrbLDGzfB64eHpth537xFIHqWh4NiXaxqEWW8vxxVo0"/>
+</div>
+</div>
+</header>
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-4 w-64 z-[60] bg-[#132763]/80 dark:bg-slate-950/90 backdrop-blur-2xl shadow-[20px_0_40px_rgba(0,22,79,0.08)]">
+<div class="px-6 py-6 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">health_metrics</span>
+</div>
+<div>
+<h2 class="text-lg font-bold text-white font-headline">Guardian Health</h2>
+<p class="text-xs text-white/60">Central Hospital</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1 overflow-y-auto px-2">
+<div class="flex items-center gap-4 px-4 py-3 text-white/70 hover:text-white mx-2 transition-all duration-200 hover:bg-white/10 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">person_add</span>
+<span class="text-sm font-medium">Registration</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-white/70 hover:text-white mx-2 transition-all duration-200 hover:bg-white/10 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="text-sm font-medium">Rights</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-white/70 hover:text-white mx-2 transition-all duration-200 hover:bg-white/10 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">reorder</span>
+<span class="text-sm font-medium">Queue</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 bg-white/20 text-white rounded-xl mx-2 font-bold cursor-pointer">
+<span class="material-symbols-outlined">biotech</span>
+<span class="text-sm">Lab/LIS</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-white/70 hover:text-white mx-2 transition-all duration-200 hover:bg-white/10 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">medication</span>
+<span class="text-sm font-medium">Pharmacy</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-white/70 hover:text-white mx-2 transition-all duration-200 hover:bg-white/10 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Billing</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-white/70 hover:text-white mx-2 transition-all duration-200 hover:bg-white/10 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-sm font-medium">Inventory</span>
+</div>
+</nav>
+<div class="mt-auto px-4 border-t border-white/10 pt-4">
+<div class="flex items-center gap-4 px-4 py-3 text-white/70 hover:text-white mx-2 transition-all duration-200 hover:bg-white/10 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen bg-gradient-to-br from-[#4a90b8] via-[#6bb5d8] to-[#f6fafe] p-8">
+<!-- Header & Breadcrumbs -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<nav class="flex gap-2 text-white/70 text-sm mb-2">
+<span>Laboratory</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-white font-bold">Hematology Workstation</span>
+</nav>
+<h1 class="text-4xl font-black text-white font-headline tracking-tight">Lab Workstation</h1>
+</div>
+<div class="flex gap-4">
+<button class="bg-white/15 backdrop-blur-md text-white px-6 py-2.5 rounded-full flex items-center gap-2 hover:bg-white/25 transition-all border border-white/20">
+<span class="material-symbols-outlined">barcode_scanner</span>
+                    Print Barcode stickers
+                </button>
+<button class="bg-gradient-to-r from-primary to-primary-container text-white px-8 py-2.5 rounded-full flex items-center gap-2 shadow-lg hover:scale-105 transition-all active:scale-95">
+<span class="material-symbols-outlined">check_circle</span>
+                    Verify / Authorize
+                </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="bento-grid">
+<!-- Left Column: Pending Worklist -->
+<section class="col-span-12 lg:col-span-5 flex flex-col gap-6">
+<div class="glass-panel p-6 rounded-2xl shadow-xl h-full">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-white font-bold text-xl flex items-center gap-2">
+<span class="material-symbols-outlined">list_alt</span>
+                            Lab Orders Pending
+                        </h3>
+<span class="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-bold">24 Orders</span>
+</div>
+<div class="space-y-3 overflow-y-auto max-h-[700px] pr-2">
+<!-- Order Card 1: Critical -->
+<div class="bg-white/95 rounded-xl p-4 border-l-4 border-error shadow-sm hover:translate-x-1 transition-transform cursor-pointer">
+<div class="flex justify-between mb-2">
+<span class="text-xs font-bold text-error uppercase tracking-widest">Urgent (STAT)</span>
+<span class="text-xs text-outline">10:45 AM</span>
+</div>
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-bold">HN</div>
+<div>
+<p class="font-bold text-primary">HN-2024-0891</p>
+<p class="text-sm text-on-surface">Somchai Rakdee (Male, 45)</p>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex gap-2">
+<span class="bg-surface-container-high px-3 py-1 rounded-full text-[10px] font-bold text-primary">CBC + Diff</span>
+<span class="bg-surface-container-high px-3 py-1 rounded-full text-[10px] font-bold text-primary">Blood Chemistry</span>
+</div>
+<span class="text-[10px] bg-amber-100 text-amber-700 font-bold px-2 py-1 rounded-md flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">pending</span> Wait for blood
+                                </span>
+</div>
+</div>
+<!-- Order Card 2: Active -->
+<div class="bg-primary-container/90 rounded-xl p-4 shadow-sm border-l-4 border-secondary-container hover:translate-x-1 transition-transform cursor-pointer ring-2 ring-white/50">
+<div class="flex justify-between mb-2">
+<span class="text-xs font-bold text-secondary-container uppercase tracking-widest">Routine</span>
+<span class="text-xs text-white/60">11:15 AM</span>
+</div>
+<div class="flex items-center gap-3 mb-3 text-white">
+<div class="w-10 h-10 rounded-full bg-white/20 text-white flex items-center justify-center font-bold">NW</div>
+<div>
+<p class="font-bold">HN-2024-1102</p>
+<p class="text-sm opacity-80">Napa Wanicha (Female, 32)</p>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex gap-2">
+<span class="bg-white/10 px-3 py-1 rounded-full text-[10px] font-bold text-white">Electrolytes</span>
+</div>
+<span class="text-[10px] bg-secondary-container text-on-secondary-container font-bold px-2 py-1 rounded-md flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">biotech</span> Analyzing...
+                                </span>
+</div>
+</div>
+<!-- Order Card 3 -->
+<div class="bg-white/80 rounded-xl p-4 border-l-4 border-outline hover:translate-x-1 transition-transform cursor-pointer opacity-80">
+<div class="flex justify-between mb-2">
+<span class="text-xs font-bold text-outline uppercase tracking-widest">Routine</span>
+<span class="text-xs text-outline">11:30 AM</span>
+</div>
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-bold">KT</div>
+<div>
+<p class="font-bold text-primary">HN-2024-1055</p>
+<p class="text-sm text-on-surface">Kitti Thongchai (Male, 58)</p>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex gap-2">
+<span class="bg-surface-container-high px-3 py-1 rounded-full text-[10px] font-bold text-primary">Liver Profile</span>
+</div>
+<span class="text-[10px] bg-blue-100 text-blue-700 font-bold px-2 py-1 rounded-md flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span> Wait for verify
+                                </span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Lab Results & Entry -->
+<section class="col-span-12 lg:col-span-7 flex flex-col gap-6">
+<!-- Active Result Entry -->
+<div class="bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+<div class="bg-primary p-6 text-white flex justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-white/10 overflow-hidden border border-white/20">
+<img alt="User Profile Avatar" data-alt="close-up of a smiling young woman in hospital gown with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRZogfgGnHigdO2XZRB78QvCGatQIcIZbVTxQQ56vsSl-lGffIB01o_t-xSy3_Qv8drJO7wWf-H_EPFH1nA6OF0ao3ZZmMhgSLGRMJwy_bLtU6weMF-ijpSPQngLf47aFhQ9fffdeyV5p9KwWzm6K7dplo41az6FUxWm1bcUpN68VCl1Iw8x63QPPZC7KaXb3C_AHCvfGTx8LkYr_WONUB1WdC_hYT9PVfO_QVhbSL2CeQlN6jfXjY7HRafDj-LRERRge345tp8kg"/>
+</div>
+<div>
+<h2 class="text-2xl font-bold font-headline">Napa Wanicha</h2>
+<p class="text-sm opacity-70">HN: 2024-1102 • Age: 32y 4m • Sex: Female</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs opacity-60 uppercase tracking-widest font-bold">Requesting Physician</p>
+<p class="font-bold">Dr. Saranyu Kittipon</p>
+<p class="text-xs bg-error px-2 py-0.5 rounded-full inline-block mt-1">Allergy: Penicillin</p>
+</div>
+</div>
+<!-- Critical Value Alert Popup (Persistent for active session) -->
+<div class="bg-error p-4 flex items-center justify-between animate-pulse">
+<div class="flex items-center gap-4 text-white">
+<span class="material-symbols-outlined text-3xl">warning</span>
+<div>
+<p class="font-black text-lg font-headline">CRITICAL VALUE DETECTED</p>
+<p class="text-sm opacity-90">Potassium (K+) level is 6.8 mEq/L. Requires immediate notification.</p>
+</div>
+</div>
+<button class="bg-white text-error px-4 py-2 rounded-lg font-bold text-sm hover:bg-error-container">Notify MD</button>
+</div>
+<div class="p-6">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-outline text-xs uppercase tracking-widest border-b border-surface-container">
+<th class="pb-3 font-bold">Test Name</th>
+<th class="pb-3 font-bold">Result</th>
+<th class="pb-3 font-bold text-center">Flag</th>
+<th class="pb-3 font-bold">Normal Range</th>
+<th class="pb-3 font-bold">Unit</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="border-b border-surface-container-low hover:bg-surface-container-low transition-colors">
+<td class="py-4 font-bold text-primary">Sodium (Na)</td>
+<td class="py-4">
+<input class="w-20 bg-surface-container border-none rounded-lg focus:ring-2 focus:ring-primary text-center font-bold" type="text" value="138"/>
+</td>
+<td class="py-4 text-center">—</td>
+<td class="py-4 text-outline">135 - 145</td>
+<td class="py-4 text-outline">mEq/L</td>
+</tr>
+<tr class="border-b border-surface-container-low hover:bg-surface-container-low transition-colors bg-error-container/20">
+<td class="py-4 font-bold text-primary">Potassium (K+)</td>
+<td class="py-4">
+<input class="w-20 bg-error text-white border-none rounded-lg focus:ring-2 focus:ring-error text-center font-bold" type="text" value="6.8"/>
+</td>
+<td class="py-4 text-center">
+<span class="bg-error text-white px-2 py-0.5 rounded text-[10px] font-black tracking-tighter">HIGH (C)</span>
+</td>
+<td class="py-4 text-outline">3.5 - 5.1</td>
+<td class="py-4 text-outline">mEq/L</td>
+</tr>
+<tr class="border-b border-surface-container-low hover:bg-surface-container-low transition-colors">
+<td class="py-4 font-bold text-primary">Chloride (Cl)</td>
+<td class="py-4">
+<input class="w-20 bg-surface-container border-none rounded-lg focus:ring-2 focus:ring-primary text-center font-bold" type="text" value="102"/>
+</td>
+<td class="py-4 text-center">—</td>
+<td class="py-4 text-outline">98 - 107</td>
+<td class="py-4 text-outline">mEq/L</td>
+</tr>
+<tr class="border-b border-surface-container-low hover:bg-surface-container-low transition-colors bg-secondary-container/10">
+<td class="py-4 font-bold text-primary">Bicarbonate (CO2)</td>
+<td class="py-4">
+<input class="w-20 bg-secondary-container border-none rounded-lg focus:ring-2 focus:ring-secondary text-center font-bold" type="text" value="18"/>
+</td>
+<td class="py-4 text-center">
+<span class="bg-secondary text-white px-2 py-0.5 rounded text-[10px] font-black tracking-tighter uppercase">Low</span>
+</td>
+<td class="py-4 text-outline">22 - 29</td>
+<td class="py-4 text-outline">mEq/L</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Lab Trend Line Chart (Simulated Editorial Style) -->
+<div class="glass-panel p-6 rounded-2xl shadow-lg border border-white/30 flex-1">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-white font-bold text-lg flex items-center gap-2">
+<span class="material-symbols-outlined">trending_up</span>
+                            Historical Trend: Potassium (K+)
+                        </h3>
+<div class="flex gap-2">
+<button class="bg-white/10 px-3 py-1 rounded text-xs text-white border border-white/20">6 Months</button>
+<button class="bg-white text-primary px-3 py-1 rounded text-xs font-bold">All Time</button>
+</div>
+</div>
+<div class="h-48 relative flex items-end justify-between px-4">
+<!-- Simulated Chart Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20">
+<div class="border-t border-white w-full"></div>
+<div class="border-t border-white w-full"></div>
+<div class="border-t border-white w-full"></div>
+<div class="border-t border-white w-full"></div>
+</div>
+<!-- Simulated Data Points -->
+<div class="flex-1 flex items-end justify-around gap-2 h-full relative z-10">
+<div class="w-2 h-2 rounded-full bg-white relative bottom-4 group cursor-pointer hover:scale-150 transition-transform">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-primary p-2 rounded text-[10px] text-white whitespace-nowrap">4.2 (Jan 12)</div>
+</div>
+<div class="w-2 h-2 rounded-full bg-white relative bottom-8 group cursor-pointer hover:scale-150 transition-transform">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-primary p-2 rounded text-[10px] text-white whitespace-nowrap">4.5 (Feb 05)</div>
+</div>
+<div class="w-2 h-2 rounded-full bg-white relative bottom-6 group cursor-pointer hover:scale-150 transition-transform">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-primary p-2 rounded text-[10px] text-white whitespace-nowrap">4.3 (Mar 20)</div>
+</div>
+<div class="w-2 h-2 rounded-full bg-error relative bottom-32 ring-4 ring-error/30 animate-pulse group cursor-pointer hover:scale-150 transition-transform">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-error p-2 rounded text-[10px] text-white whitespace-nowrap font-bold">6.8 (Today)</div>
+</div>
+</div>
+<!-- Simple SVG Polyline for trend -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none overflow-visible" preserveaspectratio="none">
+<polyline fill="none" points="0,150 150,130 300,140 450,40" stroke="white" stroke-dasharray="2,2" stroke-width="3"></polyline>
+<polyline class="opacity-30" fill="none" points="0,150 150,130 300,140 450,40" stroke="white" stroke-width="3"></polyline>
+</svg>
+</div>
+<div class="flex justify-between mt-4 px-4 text-[10px] text-white/60 font-bold tracking-widest uppercase">
+<span>Jan 2024</span>
+<span>Feb 2024</span>
+<span>Mar 2024</span>
+<span class="text-white">Current</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Success Feedback Overlay (Hidden by default) -->
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-primary/40 backdrop-blur-sm">
+<div class="bg-white p-8 rounded-3xl shadow-2xl text-center max-w-sm">
+<div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+<span class="material-symbols-outlined text-4xl">check_circle</span>
+</div>
+<h3 class="text-2xl font-bold text-primary mb-2">Results Verified</h3>
+<p class="text-on-surface-variant mb-6">Patient results for HN-2024-1102 have been successfully authorized and sent to EMR.</p>
+<button class="w-full bg-primary text-white py-3 rounded-xl font-bold">Continue to Next Order</button>
+</div>
+</div>
+</body></html>

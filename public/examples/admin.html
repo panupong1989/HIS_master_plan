@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Dashboard - Ethereal Guardian HIS</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;family=Sarabun:wght@300;400;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed": "#001e2d",
+              "tertiary-fixed": "#ffdcbf",
+              "on-background": "#171c1f",
+              "on-tertiary-fixed-variant": "#693c04",
+              "outline-variant": "#c5c5d1",
+              "secondary": "#0f658b",
+              "tertiary": "#442400",
+              "secondary-fixed-dim": "#8bcef9",
+              "secondary-fixed": "#c6e7ff",
+              "on-primary-fixed-variant": "#31437f",
+              "on-surface-variant": "#454650",
+              "surface-bright": "#f6fafe",
+              "error-container": "#ffdad6",
+              "surface-container": "#eaeef2",
+              "outline": "#757681",
+              "on-tertiary-fixed": "#2d1600",
+              "inverse-primary": "#b6c4ff",
+              "on-error": "#ffffff",
+              "primary-fixed-dim": "#b6c4ff",
+              "surface-container-lowest": "#ffffff",
+              "primary-container": "#2c3e7a",
+              "on-primary-container": "#9aabef",
+              "inverse-surface": "#2c3134",
+              "primary": "#132763",
+              "surface-container-high": "#e4e9ed",
+              "surface-variant": "#dfe3e7",
+              "surface-container-highest": "#dfe3e7",
+              "secondary-container": "#91d4ff",
+              "on-secondary-fixed-variant": "#004c6b",
+              "surface-container-low": "#f0f4f8",
+              "surface": "#f6fafe",
+              "on-secondary-container": "#005c81",
+              "on-surface": "#171c1f",
+              "inverse-on-surface": "#edf1f5",
+              "error": "#ba1a1a",
+              "primary-fixed": "#dce1ff",
+              "on-secondary": "#ffffff",
+              "on-primary": "#ffffff",
+              "on-error-container": "#93000a",
+              "background": "#f6fafe",
+              "on-primary-fixed": "#00164f",
+              "tertiary-container": "#633700",
+              "on-tertiary": "#ffffff",
+              "surface-dim": "#d6dade",
+              "surface-tint": "#4a5b99",
+              "on-tertiary-container": "#e1a163",
+              "tertiary-fixed-dim": "#fcb978"
+            },
+            fontFamily: {
+              "headline": ["Be Vietnam Pro"],
+              "body": ["Sarabun"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .editorial-shadow {
+            box-shadow: 0px 20px 40px rgba(0, 22, 79, 0.08);
+        }
+        body {
+            background: linear-gradient(135deg, #4a90b8 0%, #6bb5d8 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="font-body text-on-surface selection:bg-secondary-container">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-white/15 dark:bg-slate-900/15 backdrop-blur-xl shadow-sm">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black text-[#132763] dark:text-white font-headline tracking-tight">Ethereal Guardian HIS</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[#132763]/60 dark:text-white/60 font-headline font-bold tracking-tight text-lg hover:bg-white/20 dark:hover:bg-white/10 transition-colors" href="#">Dashboard</a>
+<a class="text-[#132763] dark:text-white border-b-2 border-[#132763] dark:border-[#c6e7ff] pb-1 font-headline font-bold tracking-tight text-lg hover:bg-white/20 dark:hover:bg-white/10 transition-colors" href="#">Admin Dashboard</a>
+<a class="text-[#132763]/60 dark:text-white/60 font-headline font-bold tracking-tight text-lg hover:bg-white/20 dark:hover:bg-white/10 transition-colors" href="#">Patient Search</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-white/20 transition-colors text-primary"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 rounded-full hover:bg-white/20 transition-colors text-primary"><span class="material-symbols-outlined">settings</span></button>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-white overflow-hidden border-2 border-white/20">
+<img alt="User Profile Avatar" data-alt="professional portrait of a hospital administrator in a modern office with soft bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnD03ahEU5-SRd72xP6uS3rRBL_JOhr47-Igp6BAAtRlgivxRiuuSDIuAZawBdJUEMHFCdQpf7l4lbao-3ThJ0Kso_Bjo8srXPilUpCd9nMc0s9OFnYo3fqgEJQPH7glKTCLV0PidS1iI7GVxJQ7_QeHKqYR0DXmKD5y5QOhEd64jJowaU0iQp8H-tw2k9PK7RFKUV-Pjuv_zzfyHOl_KfC5VUllfife_zxw3hE9oF2XoyFoix0NmAKQe6yHttNscMgXqm70q7tL8"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-4 w-64 z-[60] bg-[#132763]/80 dark:bg-slate-950/90 backdrop-blur-2xl shadow-[20px_0_40px_rgba(0,22,79,0.08)] border-r border-white/10">
+<div class="px-6 mb-8 mt-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white">health_metrics</span>
+</div>
+<div>
+<h2 class="text-lg font-bold text-white font-headline">Guardian Health</h2>
+<p class="text-xs text-white/60">Central Hospital</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1 overflow-y-auto px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white mx-2 hover:bg-white/10 transition-all duration-200 font-['Sarabun'] text-sm leading-relaxed" href="#">
+<span class="material-symbols-outlined">person_add</span> Registration
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white mx-2 hover:bg-white/10 transition-all duration-200 font-['Sarabun'] text-sm leading-relaxed" href="#">
+<span class="material-symbols-outlined">reorder</span> Queue
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white mx-2 hover:bg-white/10 transition-all duration-200 font-['Sarabun'] text-sm leading-relaxed" href="#">
+<span class="material-symbols-outlined">medical_services</span> Workstation
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white/20 text-white rounded-xl mx-2 font-bold font-['Sarabun'] text-sm leading-relaxed" href="#">
+<span class="material-symbols-outlined">dashboard</span> Admin
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white mx-2 hover:bg-white/10 transition-all duration-200 font-['Sarabun'] text-sm leading-relaxed" href="#">
+<span class="material-symbols-outlined">payments</span> Billing
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white mx-2 hover:bg-white/10 transition-all duration-200 font-['Sarabun'] text-sm leading-relaxed" href="#">
+<span class="material-symbols-outlined">inventory_2</span> Inventory
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white mx-2 hover:bg-white/10 transition-all duration-200 font-['Sarabun'] text-sm leading-relaxed" href="#">
+<span class="material-symbols-outlined">assessment</span> Reports
+            </a>
+</nav>
+<div class="mt-auto px-4 py-4">
+<button class="w-full flex items-center justify-center gap-2 py-3 bg-white/15 hover:bg-white/25 text-white rounded-xl transition-all duration-200 text-sm font-bold">
+<span class="material-symbols-outlined">logout</span> Logout
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-20 px-8 pb-12">
+<!-- Header Section -->
+<header class="flex justify-between items-end mb-10">
+<div>
+<h1 class="text-3xl font-black text-white font-headline tracking-tight mb-2">Admin Executive Dashboard</h1>
+<p class="text-white/80 font-medium">Department: Administration | Live System Overview</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="px-4 py-2 glass-panel rounded-full text-white text-sm font-bold flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                    Live Updates
+                </div>
+<button class="px-6 py-2 bg-primary text-white rounded-full font-bold shadow-lg hover:scale-105 transition-transform active:scale-95">
+                    Generate Monthly Report
+                </button>
+</div>
+</header>
+<!-- Summary Grid (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+<!-- OPD Card -->
+<div class="glass-panel p-6 rounded-[24px] editorial-shadow group overflow-hidden relative">
+<div class="relative z-10">
+<p class="text-white/70 font-bold mb-1">Today's OPD</p>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-black text-white font-headline tracking-tighter">1,248</span>
+<span class="text-green-300 text-sm font-bold">+12%</span>
+</div>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-white/5 group-hover:text-white/10 transition-all duration-500">group</span>
+</div>
+<!-- IPD Card -->
+<div class="glass-panel p-6 rounded-[24px] editorial-shadow group overflow-hidden relative">
+<div class="relative z-10">
+<p class="text-white/70 font-bold mb-1">Today's IPD</p>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-black text-white font-headline tracking-tighter">482</span>
+<span class="text-white/50 text-sm font-bold">Stable</span>
+</div>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-white/5 group-hover:text-white/10 transition-all duration-500">bed</span>
+</div>
+<!-- ER Card -->
+<div class="glass-panel p-6 rounded-[24px] editorial-shadow group overflow-hidden relative border-l-4 border-error">
+<div class="relative z-10">
+<p class="text-white/70 font-bold mb-1">Emergency (ER)</p>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-black text-error font-headline tracking-tighter">54</span>
+<span class="text-error-container text-sm font-bold">Critical</span>
+</div>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-white/5 group-hover:text-white/10 transition-all duration-500">emergency</span>
+</div>
+<!-- BOR Card -->
+<div class="glass-panel p-6 rounded-[24px] editorial-shadow relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-white/70 font-bold mb-1">Bed Occupancy (BOR)</p>
+<div class="flex items-baseline gap-2 mb-2">
+<span class="text-5xl font-black text-white font-headline tracking-tighter">88.5%</span>
+</div>
+<div class="w-full bg-white/20 h-2 rounded-full">
+<div class="bg-secondary-container h-full rounded-full" style="width: 88.5%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Analytics Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+<!-- Patient Trend Bar Chart (Glass) -->
+<div class="lg:col-span-2 glass-panel p-8 rounded-[24px] editorial-shadow">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-xl font-bold text-white font-headline">30-Day Patient Trend</h3>
+<div class="flex gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span>
+<span class="text-xs text-white/60">OPD Count</span>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-1">
+<!-- Placeholder Bar Chart Visual -->
+<div class="w-full bg-white/10 rounded-t-lg h-[40%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/10 rounded-t-lg h-[60%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/10 rounded-t-lg h-[55%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/10 rounded-t-lg h-[80%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/10 rounded-t-lg h-[70%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/10 rounded-t-lg h-[95%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/20 rounded-t-lg h-[85%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/10 rounded-t-lg h-[65%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/10 rounded-t-lg h-[50%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/10 rounded-t-lg h-[75%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/10 rounded-t-lg h-[90%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/10 rounded-t-lg h-[60%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/10 rounded-t-lg h-[45%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/10 rounded-t-lg h-[85%] hover:bg-white/30 transition-all"></div>
+<div class="w-full bg-white/10 rounded-t-lg h-[100%] hover:bg-white/30 transition-all"></div>
+</div>
+<div class="flex justify-between mt-4 text-[10px] text-white/40 uppercase font-bold tracking-widest">
+<span>1st Oct</span>
+<span>15th Oct</span>
+<span>Today</span>
+</div>
+</div>
+<!-- Patient Rights Breakdown (Pie Visual) -->
+<div class="glass-panel p-8 rounded-[24px] editorial-shadow flex flex-col">
+<h3 class="text-xl font-bold text-white font-headline mb-8">Patient Rights</h3>
+<div class="flex-1 flex items-center justify-center relative">
+<!-- Mock Pie Chart -->
+<div class="w-48 h-48 rounded-full border-[16px] border-white/10 flex items-center justify-center relative">
+<div class="absolute inset-0 rounded-full border-[16px] border-secondary-container border-t-transparent border-l-transparent" style="transform: rotate(45deg)"></div>
+<div class="text-center">
+<span class="block text-3xl font-black text-white font-headline">2.4k</span>
+<span class="text-xs text-white/60">Total Active</span>
+</div>
+</div>
+</div>
+<div class="mt-8 space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span>
+<span class="text-white text-sm">UC (Universal Coverage)</span>
+</div>
+<span class="text-white font-bold">45%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary-fixed"></span>
+<span class="text-white text-sm">CGD (Government)</span>
+</div>
+<span class="text-white font-bold">30%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-white/30"></span>
+<span class="text-white text-sm">SSS (Social Security)</span>
+</div>
+<span class="text-white font-bold">15%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-white/10"></span>
+<span class="text-white text-sm">Self Pay</span>
+</div>
+<span class="text-white font-bold">10%</span>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Real-time Waiting Wait & Waiting Counts -->
+<div class="bg-white/10 backdrop-blur-md rounded-[24px] overflow-hidden">
+<div class="p-6 border-b border-white/10">
+<h3 class="text-xl font-bold text-white font-headline">Department Waiting Status</h3>
+</div>
+<div class="divide-y divide-white/5">
+<div class="px-6 py-4 flex justify-between items-center hover:bg-white/5 transition-colors">
+<div>
+<p class="text-white font-bold">Cardiology</p>
+<p class="text-white/60 text-xs">OPD 2nd Floor</p>
+</div>
+<div class="flex gap-8 text-right">
+<div>
+<p class="text-white/50 text-[10px] uppercase font-bold">Waiting</p>
+<p class="text-white text-lg font-black font-headline">24</p>
+</div>
+<div>
+<p class="text-white/50 text-[10px] uppercase font-bold">Avg Wait</p>
+<p class="text-secondary-container text-lg font-black font-headline">18m</p>
+</div>
+</div>
+</div>
+<div class="px-6 py-4 flex justify-between items-center hover:bg-white/5 transition-colors">
+<div>
+<p class="text-white font-bold">Pediatrics</p>
+<p class="text-white/60 text-xs">OPD 1st Floor</p>
+</div>
+<div class="flex gap-8 text-right">
+<div>
+<p class="text-white/50 text-[10px] uppercase font-bold">Waiting</p>
+<p class="text-white text-lg font-black font-headline">12</p>
+</div>
+<div>
+<p class="text-white/50 text-[10px] uppercase font-bold">Avg Wait</p>
+<p class="text-secondary-container text-lg font-black font-headline">12m</p>
+</div>
+</div>
+</div>
+<div class="px-6 py-4 flex justify-between items-center bg-error/10">
+<div>
+<p class="text-white font-bold">Emergency Dept</p>
+<p class="text-white/60 text-xs">Ground Floor</p>
+</div>
+<div class="flex gap-8 text-right">
+<div>
+<p class="text-white/50 text-[10px] uppercase font-bold">Waiting</p>
+<p class="text-error text-lg font-black font-headline">8</p>
+</div>
+<div>
+<p class="text-white/50 text-[10px] uppercase font-bold">Avg Wait</p>
+<p class="text-error text-lg font-black font-headline">45m</p>
+</div>
+</div>
+</div>
+<div class="px-6 py-4 flex justify-between items-center hover:bg-white/5 transition-colors">
+<div>
+<p class="text-white font-bold">Orthopedics</p>
+<p class="text-white/60 text-xs">OPD 3rd Floor</p>
+</div>
+<div class="flex gap-8 text-right">
+<div>
+<p class="text-white/50 text-[10px] uppercase font-bold">Waiting</p>
+<p class="text-white text-lg font-black font-headline">31</p>
+</div>
+<div>
+<p class="text-white/50 text-[10px] uppercase font-bold">Avg Wait</p>
+<p class="text-secondary-container text-lg font-black font-headline">28m</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<!-- Financial Revenue Today -->
+<div class="glass-panel p-6 rounded-[24px] editorial-shadow">
+<h3 class="text-lg font-bold text-white font-headline mb-4">Daily Revenue by Rights (THB)</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<span class="w-16 text-xs text-white/60 font-bold">UC</span>
+<div class="flex-1 bg-white/10 h-6 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 75%"></div>
+</div>
+<span class="text-white font-black text-sm">450k</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="w-16 text-xs text-white/60 font-bold">SSS</span>
+<div class="flex-1 bg-white/10 h-6 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 40%"></div>
+</div>
+<span class="text-white font-black text-sm">220k</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="w-16 text-xs text-white/60 font-bold">CASH</span>
+<div class="flex-1 bg-white/10 h-6 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full" style="width: 60%"></div>
+</div>
+<span class="text-white font-black text-sm">380k</span>
+</div>
+</div>
+</div>
+<!-- 43-File Export Status -->
+<div class="glass-panel p-6 rounded-[24px] editorial-shadow">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-lg font-bold text-white font-headline">43-File Export Status</h3>
+<span class="text-[10px] bg-white/20 px-2 py-1 rounded text-white font-bold">V.2023-R2</span>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="text-center p-3 rounded-xl bg-white/5">
+<p class="text-xs text-white/60 mb-1">Sent</p>
+<p class="text-xl font-black text-green-400 font-headline">41</p>
+</div>
+<div class="text-center p-3 rounded-xl bg-white/5">
+<p class="text-xs text-white/60 mb-1">Waiting</p>
+<p class="text-xl font-black text-white font-headline">2</p>
+</div>
+<div class="text-center p-3 rounded-xl bg-error/10">
+<p class="text-xs text-white/60 mb-1">Error</p>
+<p class="text-xl font-black text-error font-headline">0</p>
+</div>
+</div>
+<button class="w-full mt-4 py-2 border border-white/20 rounded-lg text-white text-xs font-bold hover:bg-white/10 transition-colors">
+                        Re-export Error Files
+                    </button>
+</div>
+</div>
+</div>
+<!-- Top 10 Diseases Row (Horizontal Scrollable Editorial) -->
+<section class="mt-8">
+<h3 class="text-xl font-bold text-white font-headline mb-6">Top 10 Diagnoses Today</h3>
+<div class="flex gap-4 overflow-x-auto pb-6 scrollbar-hide">
+<div class="flex-shrink-0 w-48 glass-panel p-5 rounded-[20px] editorial-shadow border-t-4 border-secondary-container">
+<span class="text-[10px] uppercase font-black text-white/40 tracking-widest">#1 Diagnosis</span>
+<h4 class="text-lg font-bold text-white font-headline leading-tight mt-1">Hypertension</h4>
+<p class="text-white/60 text-sm mt-2">112 Cases</p>
+</div>
+<div class="flex-shrink-0 w-48 glass-panel p-5 rounded-[20px] editorial-shadow">
+<span class="text-[10px] uppercase font-black text-white/40 tracking-widest">#2 Diagnosis</span>
+<h4 class="text-lg font-bold text-white font-headline leading-tight mt-1">Diabetes Type 2</h4>
+<p class="text-white/60 text-sm mt-2">89 Cases</p>
+</div>
+<div class="flex-shrink-0 w-48 glass-panel p-5 rounded-[20px] editorial-shadow">
+<span class="text-[10px] uppercase font-black text-white/40 tracking-widest">#3 Diagnosis</span>
+<h4 class="text-lg font-bold text-white font-headline leading-tight mt-1">Common Cold</h4>
+<p class="text-white/60 text-sm mt-2">74 Cases</p>
+</div>
+<div class="flex-shrink-0 w-48 glass-panel p-5 rounded-[20px] editorial-shadow">
+<span class="text-[10px] uppercase font-black text-white/40 tracking-widest">#4 Diagnosis</span>
+<h4 class="text-lg font-bold text-white font-headline leading-tight mt-1">Hyperlipidemia</h4>
+<p class="text-white/60 text-sm mt-2">62 Cases</p>
+</div>
+<div class="flex-shrink-0 w-48 glass-panel p-5 rounded-[20px] editorial-shadow">
+<span class="text-[10px] uppercase font-black text-white/40 tracking-widest">#5 Diagnosis</span>
+<h4 class="text-lg font-bold text-white font-headline leading-tight mt-1">Gastritis</h4>
+<p class="text-white/60 text-sm mt-2">45 Cases</p>
+</div>
+<div class="flex-shrink-0 w-48 glass-panel p-5 rounded-[20px] editorial-shadow">
+<span class="text-[10px] uppercase font-black text-white/40 tracking-widest">#6 Diagnosis</span>
+<h4 class="text-lg font-bold text-white font-headline leading-tight mt-1">CKD</h4>
+<p class="text-white/60 text-sm mt-2">38 Cases</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual FAB - Only for major actions on dashboard -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-[100]">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</body></html>

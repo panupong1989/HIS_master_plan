@@ -224,19 +224,19 @@ export default function PageTeam() {
               onClick={() => setSelectedMember(selectedMember === i ? null : i)}
               style={{
                 background: selectedMember === i
-                  ? `linear-gradient(145deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08))`
-                  : 'linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04))',
-                backdropFilter: 'blur(12px)',
+                  ? `rgba(255,255,255,0.12)`
+                  : 'rgba(255,255,255,0.06)',
+                backdropFilter: 'blur(20px)',
                 border: selectedMember === i
-                  ? `1px solid ${m.color}55`
-                  : '1px solid rgba(255,255,255,0.12)',
+                  ? `1px solid ${m.color}44`
+                  : '1px solid rgba(255,255,255,0.08)',
                 borderRadius: 14,
                 padding: '14px 16px',
                 cursor: 'pointer',
                 transition: 'all 0.25s ease',
                 boxShadow: selectedMember === i
-                  ? `0 4px 20px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.2)`
-                  : '0 2px 8px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.1)',
+                  ? `0 4px 20px rgba(0,0,0,0.06)`
+                  : '0 2px 8px rgba(0,0,0,0.03)',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
@@ -277,13 +277,13 @@ export default function PageTeam() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 12 }}>
           {consultants.map((c, i) => (
             <div key={i} style={{
-              background: 'linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04))',
-              backdropFilter: 'blur(12px)',
-              border: '1px solid rgba(255,255,255,0.12)',
+              background: 'rgba(255,255,255,0.06)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: 14,
               padding: '16px',
               borderLeft: `3px solid ${c.color}`,
-              boxShadow: '0 2px 8px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.1)',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
                 <span style={{ fontSize: 22 }}>{c.icon}</span>
@@ -318,12 +318,12 @@ function OrgNode({ member, isSelected, onClick, isPM, small }) {
       onClick={onClick}
       style={{
         background: isSelected
-          ? 'linear-gradient(145deg, rgba(255,255,255,0.22), rgba(255,255,255,0.1))'
-          : 'linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05))',
-        backdropFilter: 'blur(12px)',
+          ? 'rgba(255,255,255,0.12)'
+          : 'rgba(255,255,255,0.06)',
+        backdropFilter: 'blur(20px)',
         border: isSelected
-          ? `2px solid ${member.color}66`
-          : '1px solid rgba(255,255,255,0.18)',
+          ? `2px solid ${member.color}44`
+          : '1px solid rgba(255,255,255,0.1)',
         borderRadius: isPM ? 16 : 12,
         padding: isPM ? '14px 28px' : small ? '8px 14px' : '10px 20px',
         cursor: 'pointer',
@@ -332,7 +332,7 @@ function OrgNode({ member, isSelected, onClick, isPM, small }) {
         minWidth: isPM ? 200 : small ? 140 : 160,
         position: 'relative',
         zIndex: 2,
-        boxShadow: '0 4px 16px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.15)',
+        boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
       }}
     >
       <span style={{ fontSize: isPM ? 28 : small ? 18 : 22 }}>{member.icon}</span>

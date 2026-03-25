@@ -11,6 +11,7 @@ import Page8Integration from './pages/Page8Integration'
 import PageTeam from './pages/PageTeam'
 import PagePlan from './pages/PagePlan'
 import PageDashboard from './pages/PageDashboard'
+import PageHISExample from './pages/PageHISExample'
 
 export default function App() {
   return (
@@ -27,6 +28,8 @@ export default function App() {
         <Route path="/team" element={<PageTeam />} />
         <Route path="/plan" element={<PagePlan />} />
         <Route path="/dashboard" element={<PageDashboard />} />
+        <Route path="/his-example" element={<Navigate to="/his-example/main-layout" replace />} />
+        <Route path="/his-example/:screenId" element={<PageHISExample />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Layout>

@@ -12,19 +12,35 @@ const hisSubItems = [
   { path: '/integration', label: 'เชื่อมต่อ & สรุป', emoji: '🔗', num: 8 },
 ]
 
+const hisExampleSubItems = [
+  { path: '/his-example/main-layout', label: 'Main Dashboard', emoji: '🖥️', num: 1 },
+  { path: '/his-example/registration', label: 'Registration', emoji: '📋', num: 2 },
+  { path: '/his-example/rights', label: 'Rights Verification', emoji: '🛡️', num: 3 },
+  { path: '/his-example/queue', label: 'Queue Management', emoji: '🎫', num: 4 },
+  { path: '/his-example/queue-display', label: 'Queue Display (TV)', emoji: '📺', num: 5 },
+  { path: '/his-example/workstation', label: 'Doctor Workstation', emoji: '🩺', num: 6 },
+  { path: '/his-example/lab', label: 'Lab Workstation', emoji: '🔬', num: 7 },
+  { path: '/his-example/pharmacy', label: 'Pharmacy', emoji: '💊', num: 8 },
+  { path: '/his-example/billing', label: 'Billing & Cashier', emoji: '💰', num: 9 },
+  { path: '/his-example/admin', label: 'Admin Dashboard', emoji: '📊', num: 10 },
+]
+
 const mainNavItems = [
   { id: 'his', label: 'HIS Modules', emoji: '🏥', hasChildren: true },
   { id: 'team', path: '/team', label: 'Team', emoji: '👥' },
   { id: 'plan', path: '/plan', label: 'Plan', emoji: '📅' },
   { id: 'dashboard', path: '/dashboard', label: 'Dashboard', emoji: '📊' },
+  { id: 'his-example', label: 'HIS Example', emoji: '🖥️', hasChildren: true },
 ]
 
 export default function Layout({ children }) {
   const location = useLocation()
   const [collapsed, setCollapsed] = useState(false)
   const [hisOpen, setHisOpen] = useState(true)
+  const [hisExampleOpen, setHisExampleOpen] = useState(true)
 
   const isHisPage = ['/', '/registration', '/opd', '/lab', '/pharmacy', '/ipd', '/finance', '/integration'].includes(location.pathname)
+  const isHisExamplePage = location.pathname.startsWith('/his-example')
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
@@ -257,6 +273,114 @@ export default function Layout({ children }) {
               </NavLink>
             )
           })}
+
+          {/* Divider before HIS Example */}
+          <div style={{ height: 1, background: 'rgba(255,255,255,0.06)', margin: '8px 4px' }} />
+
+          {/* HIS Example Section (expandable like HIS Modules) */}
+          <div>
+            <button
+              onClick={() => collapsed ? null : setHisExampleOpen(!hisExampleOpen)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: collapsed ? '10px 0' : '10px 12px',
+                justifyContent: collapsed ? 'center' : 'flex-start',
+                borderRadius: 10,
+                border: isHisExamplePage ? '1px solid rgba(155,89,182,0.3)' : '1px solid transparent',
+                background: isHisExamplePage
+                  ? 'linear-gradient(135deg, rgba(155,89,182,0.15), rgba(142,68,173,0.1))'
+                  : 'transparent',
+                color: isHisExamplePage ? '#fff' : 'rgba(255,255,255,0.55)',
+                fontSize: 13,
+                fontWeight: isHisExamplePage ? 700 : 500,
+                cursor: 'pointer',
+                width: '100%',
+                transition: 'all 0.25s ease',
+                fontFamily: 'inherit',
+              }}
+            >
+              <span style={{ fontSize: collapsed ? 20 : 18, width: 28, textAlign: 'center', flexShrink: 0 }}>🖥️</span>
+              {!collapsed && (
+                <>
+                  <span style={{ flex: 1, textAlign: 'left' }}>HIS Example</span>
+                  <span style={{
+                    fontSize: 10,
+                    color: 'rgba(255,255,255,0.3)',
+                    transform: hisExampleOpen ? 'rotate(90deg)' : 'rotate(0)',
+                    transition: 'transform 0.2s',
+                  }}>▶</span>
+                </>
+              )}
+            </button>
+
+            {/* HIS Example Sub items */}
+            {!collapsed && hisExampleOpen && (
+              <div style={{
+                marginLeft: 20,
+                borderLeft: '1px solid rgba(255,255,255,0.06)',
+                marginTop: 2,
+                paddingLeft: 0,
+              }}>
+                {hisExampleSubItems.map((item) => {
+                  const isActive = location.pathname === item.path
+                  return (
+                    <NavLink
+                      key={item.path}
+                      to={item.path}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 8,
+                        padding: '7px 10px 7px 14px',
+                        borderRadius: 8,
+                        textDecoration: 'none',
+                        color: isActive ? '#fff' : 'rgba(255,255,255,0.5)',
+                        background: isActive ? 'rgba(155,89,182,0.2)' : 'transparent',
+                        fontSize: 12,
+                        fontWeight: isActive ? 600 : 400,
+                        transition: 'all 0.2s ease',
+                        position: 'relative',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isActive) e.currentTarget.style.background = 'rgba(255,255,255,0.04)'
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isActive) e.currentTarget.style.background = 'transparent'
+                      }}
+                    >
+                      {isActive && (
+                        <div style={{
+                          position: 'absolute',
+                          left: -1,
+                          top: '25%',
+                          bottom: '25%',
+                          width: 2,
+                          borderRadius: 2,
+                          background: '#9b59b6',
+                        }} />
+                      )}
+                      <span style={{ fontSize: 14, width: 22, textAlign: 'center', flexShrink: 0 }}>{item.emoji}</span>
+                      <span style={{
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        flex: 1,
+                      }}>{item.label}</span>
+                      <span style={{
+                        fontSize: 9,
+                        fontFamily: "'JetBrains Mono', monospace",
+                        fontWeight: 700,
+                        color: isActive ? '#9b59b6' : 'rgba(255,255,255,0.2)',
+                        flexShrink: 0,
+                      }}>{item.num}</span>
+                    </NavLink>
+                  )
+                })}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Collapse toggle */}

@@ -270,7 +270,7 @@ function StepNode({ step, index, active, onClick, loaded }) {
                   display: "inline-block", marginTop: 4,
                   background: step.critical ? "linear-gradient(135deg, #ff6b6b, #ee5a24)"
                     : step.badge === "GO HOME" ? "linear-gradient(135deg, #2ecc71, #27ae60)"
-                    : "linear-gradient(135deg, #667eea, #764ba2)",
+                      : "linear-gradient(135deg, #667eea, #764ba2)",
                   color: "#fff", fontSize: 9, fontWeight: 800, padding: "2px 10px", borderRadius: 20,
                   fontFamily: "'JetBrains Mono', monospace", letterSpacing: 1,
                   boxShadow: "0 2px 8px rgba(0,0,0,0.15)",

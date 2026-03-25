@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="light" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;family=Sarabun:wght@300;400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed": "#001e2d",
+              "tertiary-fixed": "#ffdcbf",
+              "on-background": "#171c1f",
+              "on-tertiary-fixed-variant": "#693c04",
+              "outline-variant": "#c5c5d1",
+              "secondary": "#0f658b",
+              "tertiary": "#442400",
+              "secondary-fixed-dim": "#8bcef9",
+              "secondary-fixed": "#c6e7ff",
+              "on-primary-fixed-variant": "#31437f",
+              "on-surface-variant": "#454650",
+              "surface-bright": "#f6fafe",
+              "error-container": "#ffdad6",
+              "surface-container": "#eaeef2",
+              "outline": "#757681",
+              "on-tertiary-fixed": "#2d1600",
+              "inverse-primary": "#b6c4ff",
+              "on-error": "#ffffff",
+              "primary-fixed-dim": "#b6c4ff",
+              "surface-container-lowest": "#ffffff",
+              "primary-container": "#2c3e7a",
+              "on-primary-container": "#9aabef",
+              "inverse-surface": "#2c3134",
+              "primary": "#132763",
+              "surface-container-high": "#e4e9ed",
+              "surface-variant": "#dfe3e7",
+              "surface-container-highest": "#dfe3e7",
+              "secondary-container": "#91d4ff",
+              "on-secondary-fixed-variant": "#004c6b",
+              "surface-container-low": "#f0f4f8",
+              "surface": "#f6fafe",
+              "on-secondary-container": "#005c81",
+              "on-surface": "#171c1f",
+              "inverse-on-surface": "#edf1f5",
+              "error": "#ba1a1a",
+              "primary-fixed": "#dce1ff",
+              "on-secondary": "#ffffff",
+              "on-primary": "#ffffff",
+              "on-error-container": "#93000a",
+              "background": "#f6fafe",
+              "on-primary-fixed": "#00164f",
+              "tertiary-container": "#633700",
+              "on-tertiary": "#ffffff",
+              "surface-dim": "#d6dade",
+              "surface-tint": "#4a5b99",
+              "on-tertiary-container": "#e1a163",
+              "tertiary-fixed-dim": "#fcb978"
+            },
+            fontFamily: {
+              "headline": ["Be Vietnam Pro"],
+              "body": ["Sarabun"],
+              "label": ["Sarabun"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .glass-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .bg-ethereal-gradient {
+        background: linear-gradient(135deg, #4a90b8 0%, #132763 100%);
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+</head>
+<body class="bg-ethereal-gradient min-h-screen font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-white/15 dark:bg-slate-900/15 backdrop-blur-xl shadow-sm">
+<div class="flex items-center gap-4">
+<span class="text-xl font-black text-[#132763] dark:text-white font-headline">Ethereal Guardian HIS</span>
+<div class="h-6 w-px bg-white/20 mx-2"></div>
+<nav class="hidden md:flex gap-6">
+<a class="text-[#132763]/60 dark:text-white/60 font-headline font-bold tracking-tight text-lg hover:bg-white/20 transition-colors" href="#">Dashboard</a>
+<a class="text-[#132763] dark:text-white border-b-2 border-[#132763] dark:border-[#c6e7ff] pb-1 font-headline font-bold tracking-tight text-lg" href="#">Patient Search</a>
+<a class="text-[#132763]/60 dark:text-white/60 font-headline font-bold tracking-tight text-lg hover:bg-white/20 transition-colors" href="#">Emergency</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-white/20 transition-colors"><span class="material-symbols-outlined text-primary">notifications</span></button>
+<button class="p-2 rounded-full hover:bg-white/20 transition-colors"><span class="material-symbols-outlined text-primary">settings</span></button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white/30">
+<img alt="User Profile Avatar" data-alt="professional male doctor in white coat with stethoscope smiling in a bright medical office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO48JcsUlTzkwuVOIcoh8Yb3YtcqEInUTGyBaj-ziG6bJNZVc0cagV1REeQ8jv-pZ7EElUHAWoihs8R1V0lL2TyZIu7LvtdVESd6FS1IxC1SewFDdhpYNJBT9FlNksBYbMW1PkPjkXepOCQqTuw6ZK3U8bDbA2tLnAQt3M9smiRWssl2Va11ixtG3q695pojC43_1hGW4wdmdQMsuaE2wNkcYBx_SAflJX1Op3DmoTgIN5gRqMsGfduHtI29selX2f2BUHaEzn_Y0"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-4 w-64 z-[60] bg-[#132763]/80 dark:bg-slate-950/90 backdrop-blur-2xl shadow-[20px_0_40px_rgba(0,22,79,0.08)] border-r border-white/10 mt-16">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-white">health_metrics</span>
+</div>
+<div>
+<h2 class="text-lg font-bold text-white leading-tight">Guardian Health</h2>
+<p class="text-xs text-white/60">Central Hospital</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1 overflow-y-auto px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+<span class="font-['Sarabun'] text-sm">Registration</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white/20 text-white rounded-xl font-bold translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+<span class="font-['Sarabun'] text-sm">Rights</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="reorder">reorder</span>
+<span class="font-['Sarabun'] text-sm">Queue</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span class="font-['Sarabun'] text-sm">Workstation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+<span class="font-['Sarabun'] text-sm">Lab/LIS</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="medication">medication</span>
+<span class="font-['Sarabun'] text-sm">Pharmacy</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-['Sarabun'] text-sm">Billing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Sarabun'] text-sm">Admin</span>
+</a>
+</nav>
+<div class="mt-auto px-4 py-4">
+<button class="w-full flex items-center justify-center gap-2 bg-secondary text-white py-3 rounded-full font-bold hover:scale-95 transition-transform">
+<span class="material-symbols-outlined">add_circle</span>
+<span>New Patient</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 mt-4 text-white/60 hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-['Sarabun'] text-sm">Logout</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 pt-24 pb-12 px-8">
+<div class="max-w-6xl mx-auto space-y-8">
+<!-- Patient Editorial Header -->
+<section class="glass-card rounded-xl p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+<div class="flex items-center gap-6">
+<div class="w-24 h-24 rounded-full border-4 border-white/20 shadow-xl overflow-hidden">
+<img alt="Patient Photo" data-alt="candid close-up portrait of an elderly thai man with gray hair and gentle expression in soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJzoLET6IZ6WjGqf68IPCXDpnKxGb0fnyD31UBJSqE8AmLb8b_zse_vvcX4YuG2cIKf5ch5qL3JfB3hoAAhyQi_K2q0lPTl6YTof-wLrdeFYglCOur3QbA1OBo6jQYuCQfHctfwgkptUOP5ilUkIHJmrPcLffLCpo1SS7Ep2HnRLolHeCQevBvlNgb3X21oT7CTm6VyaEz50bMFM6GY4CvsxMxm9ry_4UXIR0LFvKraOX-p1Af6WB1RMqUzZjPpu5r1-1Y_P-oYvA"/>
+</div>
+<div>
+<p class="text-white/60 text-sm font-medium tracking-widest uppercase">Patient Profile • HN: 65-102934</p>
+<h1 class="text-4xl font-black text-white font-headline mt-1">นายสมชาย รักษาดี</h1>
+<p class="text-white/80 font-semibold mt-1">ID: 1-1002-00345-XX-X | อายุ: 62 ปี | สิทธิปัจจุบัน: บัตรทอง (UC)</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-xs text-white/60 font-bold mb-1">จุดคัดกรอง / เช็คสิทธิการรักษา</span>
+<div class="bg-primary-container text-white px-6 py-2 rounded-full font-bold text-lg shadow-lg">
+                        คิวลำดับที่: <span class="text-secondary-container">A-042</span>
+</div>
+</div>
+</section>
+<!-- Verification Action Hub (Bento Grid) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Column: Fund Selection & Alerts -->
+<div class="lg:col-span-4 space-y-6">
+<div class="glass-card rounded-xl p-6">
+<h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                            ตรวจสอบสิทธิรายกองทุน
+                        </h3>
+<div class="space-y-4">
+<button class="w-full flex items-center justify-between p-4 bg-emerald-500/90 hover:bg-emerald-500 text-white rounded-xl transition-all shadow-md group">
+<span class="font-bold">สิทธิบัตรทอง (NHSO/UC)</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-sky-600/90 hover:bg-sky-600 text-white rounded-xl transition-all shadow-md group">
+<span class="font-bold">สิทธิข้าราชการ (CGD)</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-orange-500/90 hover:bg-orange-500 text-white rounded-xl transition-all shadow-md group">
+<span class="font-bold">สิทธิประกันสังคม (SSS)</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Status Alerts -->
+<div class="bg-error/20 backdrop-blur-md border border-error/30 p-6 rounded-xl flex gap-4">
+<span class="material-symbols-outlined text-error text-3xl">warning</span>
+<div>
+<h4 class="text-error font-bold">สถานพยาบาลไม่ตรงสิทธิ</h4>
+<p class="text-white/80 text-sm">ผู้ป่วยมีสิทธิที่โรงพยาบาลจังหวัดอื่น จำเป็นต้องชำระเงินเอง หรือมีใบส่งตัว</p>
+</div>
+</div>
+</div>
+<!-- Center/Right Column: Details & Results -->
+<div class="lg:col-span-8 space-y-6">
+<div class="glass-card rounded-xl p-8 relative overflow-hidden">
+<!-- Background Glow Accent -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-secondary/20 rounded-full blur-3xl"></div>
+<div class="flex justify-between items-start relative z-10">
+<div>
+<h3 class="text-white font-bold text-2xl mb-1">ผลการตรวจสอบสิทธิ</h3>
+<p class="text-white/60 text-sm">ข้อมูลล่าสุด ณ วันที่ 24 พฤษภาคม 2567 | 09:15 น.</p>
+</div>
+<div class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 px-4 py-1 rounded-full text-sm font-bold animate-pulse">
+                                Status: Active
+                            </div>
+</div>
+<div class="grid grid-cols-2 gap-x-12 gap-y-8 mt-10 relative z-10">
+<div class="space-y-1">
+<p class="text-white/40 text-xs font-bold uppercase tracking-wider">Type of Rights / ประเภทสิทธิ</p>
+<p class="text-white text-xl font-semibold">ผู้มีสิทธิหลักประกันสุขภาพถ้วนหน้า (บัตรทอง)</p>
+</div>
+<div class="space-y-1">
+<p class="text-white/40 text-xs font-bold uppercase tracking-wider">Main Facility / สถานพยาบาลหลัก</p>
+<p class="text-white text-xl font-semibold">รพ.สต. บ้านหนองหอย</p>
+</div>
+<div class="space-y-1">
+<p class="text-white/40 text-xs font-bold uppercase tracking-wider">Sub Facility / สถานพยาบาลรอง</p>
+<p class="text-white text-xl font-semibold">รพ.สมเด็จพระยุพราชฯ</p>
+</div>
+<div class="space-y-1">
+<p class="text-white/40 text-xs font-bold uppercase tracking-wider">Effect Date / วันที่เริ่มใช้สิทธิ</p>
+<p class="text-white text-xl font-semibold">01/10/2566</p>
+</div>
+</div>
+<!-- Authen Code Section -->
+<div class="mt-12 p-6 bg-white/10 rounded-2xl border border-white/10 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-white">qr_code_2</span>
+</div>
+<div>
+<p class="text-white/60 text-xs font-bold">NHSO Authen Code</p>
+<p class="text-white text-3xl font-black font-headline tracking-widest">7W9-R2P</p>
+</div>
+</div>
+<button class="bg-white/20 hover:bg-white/30 text-white px-6 py-2 rounded-full text-sm font-bold transition-all">
+                                Copy Code
+                            </button>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="flex flex-wrap gap-4">
+<button class="flex-1 min-w-[200px] bg-emerald-600 hover:bg-emerald-500 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-xl hover:scale-[1.02] transition-all">
+<span class="material-symbols-outlined">check_circle</span>
+                            ใช้สิทธิรักษา (Use Rights)
+                        </button>
+<button class="flex-1 min-w-[200px] bg-white/20 hover:bg-white/30 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 backdrop-blur-md border border-white/20 transition-all">
+<span class="material-symbols-outlined">payments</span>
+                            จ่ายเงินเอง (Self-pay)
+                        </button>
+<button class="flex-1 min-w-[200px] bg-error hover:bg-red-600 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-xl hover:scale-[1.02] transition-all">
+<span class="material-symbols-outlined">emergency_share</span>
+                            UCEP Emergency
+                        </button>
+</div>
+<!-- Forward Action -->
+<button class="w-full bg-primary py-5 rounded-xl text-white font-black text-xl flex items-center justify-center gap-3 shadow-2xl hover:bg-primary-container transition-all">
+<span>ส่งตัวเข้าสู่ระบบคิว (Forward to Queue)</span>
+<span class="material-symbols-outlined text-3xl">keyboard_double_arrow_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Navigation Shell Support (Mobile Only) -->
+<div class="md:hidden fixed bottom-0 left-0 w-full bg-white/10 backdrop-blur-xl flex justify-around items-center h-16 z-50 px-4 border-t border-white/10">
+<button class="flex flex-col items-center text-white/60">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px]">Home</span>
+</button>
+<button class="flex flex-col items-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="text-[10px]">Rights</span>
+</button>
+<button class="flex flex-col items-center text-white/60">
+<span class="material-symbols-outlined">person_search</span>
+<span class="text-[10px]">Search</span>
+</button>
+<button class="flex flex-col items-center text-white/60">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-[10px]">Profile</span>
+</button>
+</div>
+</body></html>

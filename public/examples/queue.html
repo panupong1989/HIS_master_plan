@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Queue Management - Ethereal Guardian HIS</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;family=Sarabun:wght@400;500;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed": "#001e2d",
+              "tertiary-fixed": "#ffdcbf",
+              "on-background": "#171c1f",
+              "on-tertiary-fixed-variant": "#693c04",
+              "outline-variant": "#c5c5d1",
+              "secondary": "#0f658b",
+              "tertiary": "#442400",
+              "secondary-fixed-dim": "#8bcef9",
+              "secondary-fixed": "#c6e7ff",
+              "on-primary-fixed-variant": "#31437f",
+              "on-surface-variant": "#454650",
+              "surface-bright": "#f6fafe",
+              "error-container": "#ffdad6",
+              "surface-container": "#eaeef2",
+              "outline": "#757681",
+              "on-tertiary-fixed": "#2d1600",
+              "inverse-primary": "#b6c4ff",
+              "on-error": "#ffffff",
+              "primary-fixed-dim": "#b6c4ff",
+              "surface-container-lowest": "#ffffff",
+              "primary-container": "#2c3e7a",
+              "on-primary-container": "#9aabef",
+              "inverse-surface": "#2c3134",
+              "primary": "#132763",
+              "surface-container-high": "#e4e9ed",
+              "surface-variant": "#dfe3e7",
+              "surface-container-highest": "#dfe3e7",
+              "secondary-container": "#91d4ff",
+              "on-secondary-fixed-variant": "#004c6b",
+              "surface-container-low": "#f0f4f8",
+              "surface": "#f6fafe",
+              "on-secondary-container": "#005c81",
+              "on-surface": "#171c1f",
+              "inverse-on-surface": "#edf1f5",
+              "error": "#ba1a1a",
+              "primary-fixed": "#dce1ff",
+              "on-secondary": "#ffffff",
+              "on-primary": "#ffffff",
+              "on-error-container": "#93000a",
+              "background": "#f6fafe",
+              "on-primary-fixed": "#00164f",
+              "tertiary-container": "#633700",
+              "on-tertiary": "#ffffff",
+              "surface-dim": "#d6dade",
+              "surface-tint": "#4a5b99",
+              "on-tertiary-container": "#e1a163",
+              "tertiary-fixed-dim": "#fcb978"
+            },
+            fontFamily: {
+              "headline": ["Be Vietnam Pro"],
+              "body": ["Sarabun"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-[#4a90b8] to-[#6bb5d8] min-h-screen font-body text-on-background">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-white/15 dark:bg-slate-900/15 backdrop-blur-xl shadow-sm">
+<div class="flex items-center gap-4">
+<span class="text-xl font-black text-[#132763] dark:text-white font-headline">Ethereal Guardian HIS</span>
+<div class="hidden md:flex gap-6 ml-8">
+<a class="font-['Be_Vietnam_Pro'] font-bold tracking-tight text-lg text-[#132763]/60 dark:text-white/60 hover:bg-white/20 transition-colors" href="#">Dashboard</a>
+<a class="font-['Be_Vietnam_Pro'] font-bold tracking-tight text-lg text-[#132763]/60 dark:text-white/60 hover:bg-white/20 transition-colors" href="#">Patient Search</a>
+<a class="font-['Be_Vietnam_Pro'] font-bold tracking-tight text-lg text-[#132763] dark:text-white border-b-2 border-[#132763] dark:border-[#c6e7ff] pb-1" href="#">Queue</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-[#132763]">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-[#132763]">settings</span>
+</button>
+<img alt="User Profile Avatar" class="w-8 h-8 rounded-full border-2 border-white/50" data-alt="professional medical staff profile portrait with a friendly expression in a bright clinic setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtbDb5Vd8dS5len1fNQ9guaiQhnfJn9-X8tNWGGgwamq8nX8CFEZyY0ZxuRAZvbbVWM6VZNGWdvw1WfbgCRIvcHO3DAhNCgYXbjcXhuR2JHHnObIB0DSyS1CEb58pXmHAHuQ4X_EVY5vHSVObMjKGKUPnAdlsS906MIfXbwy8G9YetDQmvYjv_UdJLuCnfJ_cpICPBURkHINfh_BefCIZIHoKMgPL5IhXYcVA9eFbpbRqNguNTyin-yr0ETaLbnMtcjckB6H4aPVg"/>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-4 w-64 z-[60] bg-[#132763]/80 dark:bg-slate-950/90 backdrop-blur-2xl shadow-[20px_0_40px_rgba(0,22,79,0.08)] hidden lg:flex">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">health_metrics</span>
+</div>
+<div>
+<h2 class="text-lg font-bold text-white font-headline">Guardian Health</h2>
+<p class="text-xs text-white/70">Central Hospital</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1 px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-xl mx-2" href="#">
+<span class="material-symbols-outlined">person_add</span> Registration
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white/20 text-white rounded-xl mx-2 font-bold translate-x-1" href="#">
+<span class="material-symbols-outlined">reorder</span> Queue
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-xl mx-2" href="#">
+<span class="material-symbols-outlined">medical_services</span> Workstation
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-xl mx-2" href="#">
+<span class="material-symbols-outlined">biotech</span> Lab/LIS
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-xl mx-2" href="#">
+<span class="material-symbols-outlined">medication</span> Pharmacy
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-xl mx-2" href="#">
+<span class="material-symbols-outlined">payments</span> Billing
+            </a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full flex items-center justify-center gap-2 bg-white/20 py-3 rounded-xl text-white font-bold hover:bg-white/30 transition-all">
+<span class="material-symbols-outlined">logout</span> Logout
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-64 pt-20 pb-12 px-6">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Room Header & Stats Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Room Info -->
+<div class="md:col-span-2 glass-panel rounded-xl p-6 flex items-center justify-between">
+<div>
+<span class="text-white/70 font-label text-sm uppercase tracking-wider">Department: OPD Room 04</span>
+<h1 class="text-3xl font-black text-white font-headline mt-1">Dr. Somsak Peerawit</h1>
+<p class="text-secondary-fixed font-medium">Internal Medicine Specialist</p>
+</div>
+<div class="bg-primary/40 p-4 rounded-2xl border border-white/20 text-center">
+<span class="block text-white/60 text-xs font-label">ROOM</span>
+<span class="text-4xl font-black text-white">04</span>
+</div>
+</div>
+<!-- Stats Cards -->
+<div class="glass-panel rounded-xl p-4 flex flex-col justify-center text-center">
+<span class="text-white/70 text-sm font-label">Waiting Count</span>
+<span class="text-4xl font-black text-white font-headline">12</span>
+<span class="text-secondary-fixed text-xs mt-1">+2 in last 30m</span>
+</div>
+<div class="glass-panel rounded-xl p-4 flex flex-col justify-center text-center">
+<span class="text-white/70 text-sm font-label">Avg Wait Time</span>
+<span class="text-4xl font-black text-white font-headline">18<small class="text-lg font-normal ml-1">min</small></span>
+<span class="text-secondary-fixed text-xs mt-1">Normal flow</span>
+</div>
+</div>
+<!-- Active Journey & Action Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Queue List (Left Column) -->
+<div class="lg:col-span-8 space-y-4">
+<div class="flex items-center justify-between px-2">
+<h3 class="text-xl font-bold text-white font-headline">Waiting Queue</h3>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white border border-white/20">All Triage</span>
+<span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white border border-white/20">Latest</span>
+</div>
+</div>
+<div class="space-y-3 overflow-y-auto max-h-[600px] pr-2 custom-scrollbar">
+<!-- Queue Item 1 (High Priority) -->
+<div class="bg-white/95 rounded-xl p-4 flex items-center gap-6 shadow-lg border-l-8 border-error">
+<div class="flex-shrink-0 text-center w-16">
+<span class="text-3xl font-black text-primary font-headline">A042</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-lg text-primary">นายสมชาย เข็มกลัด</h4>
+<div class="flex gap-4 text-sm text-outline">
+<span>HN: 65-02948</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">verified_user</span> บัตรทอง</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 bg-error text-white text-xs font-bold rounded-full">CRITICAL</span>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Queue Item 2 -->
+<div class="bg-white/85 rounded-xl p-4 flex items-center gap-6 shadow-md">
+<div class="flex-shrink-0 text-center w-16">
+<span class="text-3xl font-black text-primary/60 font-headline">A043</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-lg text-primary">นางสาววิภาณี รักดี</h4>
+<div class="flex gap-4 text-sm text-outline">
+<span>HN: 67-00122</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">payments</span> ประกันสังคม</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-xs font-bold rounded-full">NORMAL</span>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Queue Item 3 -->
+<div class="bg-white/80 rounded-xl p-4 flex items-center gap-6 shadow-sm">
+<div class="flex-shrink-0 text-center w-16">
+<span class="text-3xl font-black text-primary/40 font-headline">A044</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-lg text-primary">เด็กชายใจดี เรียนเก่ง</h4>
+<div class="flex gap-4 text-sm text-outline">
+<span>HN: 66-04531</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">paid</span> จ่ายตรง</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-xs font-bold rounded-full">NORMAL</span>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Queue Item 4 -->
+<div class="bg-white/70 rounded-xl p-4 flex items-center gap-6 shadow-sm">
+<div class="flex-shrink-0 text-center w-16">
+<span class="text-3xl font-black text-primary/30 font-headline">A045</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-lg text-primary">นายประเสริฐ เลิศล้ำ</h4>
+<div class="flex gap-4 text-sm text-outline">
+<span>HN: 64-00992</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">verified_user</span> บัตรทอง</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-xs font-bold rounded-full">NORMAL</span>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Control Center & Current Patient (Right Column) -->
+<div class="lg:col-span-4 space-y-6">
+<!-- Current Patient Card -->
+<div class="bg-white rounded-xl shadow-2xl overflow-hidden border border-white/40">
+<div class="bg-primary p-4 flex justify-between items-center">
+<span class="text-white/70 font-label text-xs uppercase font-bold">Currently Treating</span>
+<span class="bg-white/20 px-2 py-0.5 rounded text-[10px] text-white">08:42 AM Start</span>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-4 mb-6">
+<div class="relative">
+<img alt="Current Patient" class="w-16 h-16 rounded-full object-cover border-4 border-secondary-fixed" data-alt="close-up portrait of an elderly thai gentleman with glasses looking calmly at the camera in a brightly lit room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7pgq6kgyPM7tq3VyYB0h9gLt8y25aMhm53Hs3NUr_giwFDGbtGLTy_e5NaIXNpo3Zr8YYD5Ic1sBbDn997Y1z5EPbRZ-UHcOARkaNg_RqcSvQT4nEszbqHIf9u4pBgb_GFZmHEZL4ZEgUHGNpX0UM3gDIF6eSLEIlUDKpJ9iI0g8LaBM6G8UU95Zt3pOskognxmeg5vRjUMmIFodDcIwe-JKFohWoU4sYEfjg8MAYuQVB8b2h0eCZlGCO3cJg23_I08rpik07hXY"/>
+<span class="absolute -bottom-1 -right-1 w-6 h-6 bg-secondary flex items-center justify-center rounded-full border-2 border-white text-[10px] text-white font-bold">A041</span>
+</div>
+<div>
+<h2 class="text-xl font-bold text-primary">นายปัญญา นามสมมติ</h2>
+<p class="text-sm text-outline">HN: 62-00512 • 68 Years</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-6">
+<div class="p-3 bg-surface-container-low rounded-xl">
+<span class="block text-[10px] text-outline uppercase font-bold">Blood Pressure</span>
+<span class="text-lg font-black text-primary">132/85</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded-xl">
+<span class="block text-[10px] text-outline uppercase font-bold">Pulse Rate</span>
+<span class="text-lg font-black text-primary">78 <small class="text-[10px] font-normal">bpm</small></span>
+</div>
+<div class="p-3 bg-error-container/30 rounded-xl col-span-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div>
+<span class="block text-[10px] text-error uppercase font-bold">Allergies</span>
+<span class="text-sm font-bold text-on-error-container">Penicillin, Seafood</span>
+</div>
+</div>
+</div>
+<button class="w-full py-3 bg-surface-container-highest text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">clinical_notes</span> View Electronic Medical Record
+                            </button>
+</div>
+</div>
+<!-- Queue Action Buttons -->
+<div class="grid grid-cols-2 gap-4">
+<button class="col-span-2 py-5 bg-gradient-to-r from-green-600 to-green-500 text-white rounded-xl shadow-lg shadow-green-900/20 flex flex-col items-center justify-center gap-1 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+<span class="font-black text-xl font-headline tracking-wide uppercase">Call Next</span>
+</button>
+<button class="py-4 bg-amber-400 text-amber-950 rounded-xl font-bold flex flex-col items-center gap-1 active:scale-95 transition-all shadow-md">
+<span class="material-symbols-outlined">fast_forward</span>
+<span>Skip Patient</span>
+</button>
+<button class="py-4 bg-orange-500 text-white rounded-xl font-bold flex flex-col items-center gap-1 active:scale-95 transition-all shadow-md">
+<span class="material-symbols-outlined">pause</span>
+<span>Pause Queue</span>
+</button>
+<button class="col-span-2 py-4 bg-primary text-white rounded-xl font-bold flex items-center justify-center gap-3 active:scale-95 transition-all shadow-md">
+<span class="material-symbols-outlined">move_up</span>
+<span>Transfer to Other Dept.</span>
+</button>
+</div>
+<!-- Bottom Stats / Reports -->
+<div class="glass-panel p-4 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-green-300">check_circle</span>
+</div>
+<div>
+<span class="block text-xs text-white/70 font-label">Treated Today</span>
+<span class="text-xl font-bold text-white">24 Patients</span>
+</div>
+</div>
+<button class="text-white/60 hover:text-white transition-colors">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB (Suppressed based on rules as this is a focused Task screen, but keeping for visual anchor if needed per system) -->
+<!-- Suppression Logic: Suppress FAB on Details/Task screens. Removing FAB to prioritize Queue interaction. -->
+</body></html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ethereal Guardian HIS - Pharmacy Dispensing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;family=Sarabun:wght@300;400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed": "#001e2d",
+                        "tertiary-fixed": "#ffdcbf",
+                        "on-background": "#171c1f",
+                        "on-tertiary-fixed-variant": "#693c04",
+                        "outline-variant": "#c5c5d1",
+                        "secondary": "#0f658b",
+                        "tertiary": "#442400",
+                        "secondary-fixed-dim": "#8bcef9",
+                        "secondary-fixed": "#c6e7ff",
+                        "on-primary-fixed-variant": "#31437f",
+                        "on-surface-variant": "#454650",
+                        "surface-bright": "#f6fafe",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#eaeef2",
+                        "outline": "#757681",
+                        "on-tertiary-fixed": "#2d1600",
+                        "inverse-primary": "#b6c4ff",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2c3e7a",
+                        "on-primary-container": "#9aabef",
+                        "inverse-surface": "#2c3134",
+                        "primary": "#132763",
+                        "surface-container-high": "#e4e9ed",
+                        "surface-variant": "#dfe3e7",
+                        "surface-container-highest": "#dfe3e7",
+                        "secondary-container": "#91d4ff",
+                        "on-secondary-fixed-variant": "#004c6b",
+                        "surface-container-low": "#f0f4f8",
+                        "surface": "#f6fafe",
+                        "on-secondary-container": "#005c81",
+                        "on-surface": "#171c1f",
+                        "inverse-on-surface": "#edf1f5",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#dce1ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f6fafe",
+                        "on-primary-fixed": "#00164f",
+                        "tertiary-container": "#633700",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#d6dade",
+                        "surface-tint": "#4a5b99",
+                        "on-tertiary-container": "#e1a163",
+                        "tertiary-fixed-dim": "#fcb978"
+                    },
+                    fontFamily: {
+                        "headline": ["Be Vietnam Pro"],
+                        "body": ["Sarabun"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1.25rem", "3xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .ethereal-bg {
+            background: linear-gradient(135deg, #4a90b8 0%, #6bb5d8 100%);
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background min-h-screen ethereal-bg overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-white/15 dark:bg-slate-900/15 backdrop-blur-xl shadow-sm">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black text-[#132763] dark:text-white tracking-tight font-headline">Ethereal Guardian HIS</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-[#132763]/60 dark:text-white/60 font-headline font-bold transition-colors hover:bg-white/20 px-3 py-1 rounded-lg" href="#">Dashboard</a>
+<a class="text-[#132763]/60 dark:text-white/60 font-headline font-bold transition-colors hover:bg-white/20 px-3 py-1 rounded-lg" href="#">Patient Search</a>
+<a class="text-[#132763]/60 dark:text-white/60 font-headline font-bold transition-colors hover:bg-white/20 px-3 py-1 rounded-lg" href="#">Emergency</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full transition-colors hover:bg-white/20">
+<span class="material-symbols-outlined text-[#132763] dark:text-[#c6e7ff]">notifications</span>
+</button>
+<button class="p-2 rounded-full transition-colors hover:bg-white/20">
+<span class="material-symbols-outlined text-[#132763] dark:text-[#c6e7ff]">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-white/20">
+<img alt="User Profile Avatar" data-alt="professional portrait of a medical pharmacist in a clean white coat with soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC55TMREKG8ma78yneDVgRIdAPJmtrcsYsbAmcLJlg49xPbmWscOhs5VWTkz4E1OpsmEGohbZLeLFN0Sq9TA_W5-fW7ocJh1t7mSBJNZGFUl_Ea1KoktWXcsC1XE9CrR3oxHgfdVNTrkl9eB85DrfebMIA1W-1WxQyJAo_8e9tphOcR5W8Z4_v7u_qNVEkkHwq7fHz9IlOwlb32qmeufwc9-Z-RXNJv1B6FB1Xjh4IRSF7Ejvkp_vk8o915QhQnJ_2f5dmGDVo32w0"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-4 w-64 z-[60] bg-[#132763]/80 dark:bg-slate-950/90 backdrop-blur-2xl shadow-[20px_0_40px_rgba(0,22,79,0.08)] border-r border-white/10">
+<div class="px-6 mb-8 mt-12">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-white">health_metrics</span>
+</div>
+<div>
+<h2 class="text-lg font-bold text-white font-headline leading-none">Guardian Health</h2>
+<p class="text-[10px] text-white/60 uppercase tracking-widest mt-1">Central Hospital</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all rounded-xl mx-2 text-sm" href="#">
+<span class="material-symbols-outlined">person_add</span> Registration
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all rounded-xl mx-2 text-sm" href="#">
+<span class="material-symbols-outlined">verified_user</span> Rights
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all rounded-xl mx-2 text-sm" href="#">
+<span class="material-symbols-outlined">reorder</span> Queue
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all rounded-xl mx-2 text-sm" href="#">
+<span class="material-symbols-outlined">medical_services</span> Workstation
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all rounded-xl mx-2 text-sm" href="#">
+<span class="material-symbols-outlined">biotech</span> Lab/LIS
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white/20 text-white rounded-xl mx-2 font-bold text-sm active:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined">medication</span> Pharmacy
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all rounded-xl mx-2 text-sm" href="#">
+<span class="material-symbols-outlined">payments</span> Billing
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 transition-all rounded-xl mx-2 text-sm" href="#">
+<span class="material-symbols-outlined">assessment</span> Reports
+            </a>
+</nav>
+<div class="mt-auto px-4 pb-4">
+<button class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#132763] to-[#2c3e7a] text-white py-3 rounded-xl font-bold shadow-lg hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined">add</span> New Patient
+            </button>
+<a class="flex items-center gap-3 px-4 py-3 mt-4 text-white/60 hover:text-white transition-colors text-sm" href="#">
+<span class="material-symbols-outlined">logout</span> Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-20 p-8 min-h-screen">
+<div class="max-w-7xl mx-auto grid grid-cols-12 gap-8">
+<!-- Header Section -->
+<div class="col-span-12 flex justify-between items-end mb-4">
+<div>
+<h1 class="text-4xl font-black text-white font-headline tracking-tighter">Pharmacy Dispensing</h1>
+<p class="text-white/80 mt-1 font-body text-lg">Department: Main Pharmacy Hall</p>
+</div>
+<div class="glass-panel rounded-3xl p-6 flex gap-8 items-center">
+<div class="text-center border-r border-white/20 pr-8">
+<p class="text-xs font-label text-white/60 uppercase tracking-widest">Now Calling</p>
+<p class="text-5xl font-black text-white font-headline tracking-tighter">P-042</p>
+</div>
+<div>
+<p class="text-sm font-label text-white uppercase font-bold tracking-tight">Counter 03</p>
+<button class="mt-2 flex items-center gap-2 bg-white text-primary px-4 py-2 rounded-full font-bold text-sm hover:bg-secondary-fixed transition-colors">
+<span class="material-symbols-outlined text-sm">campaign</span> Call Next Patient
+                        </button>
+</div>
+</div>
+</div>
+<!-- Left Column: Prescription Queue -->
+<div class="col-span-4 flex flex-col gap-6">
+<div class="glass-panel rounded-3xl overflow-hidden flex flex-col h-[750px]">
+<div class="p-6 bg-white/10 flex justify-between items-center border-b border-white/10">
+<h3 class="text-white font-bold font-headline flex items-center gap-2">
+<span class="material-symbols-outlined">format_list_bulleted</span> Prescription Queue
+                        </h3>
+<span class="bg-secondary text-white text-[10px] px-2 py-1 rounded-full font-bold">14 PENDING</span>
+</div>
+<div class="p-4">
+<div class="relative">
+<input class="w-full bg-white/10 border-none rounded-2xl py-3 pl-11 pr-4 text-white placeholder-white/40 focus:ring-2 focus:ring-white/30 text-sm" placeholder="Search HN or Name..." type="text"/>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/50 text-xl">search</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-2 space-y-2">
+<!-- Queue Item Active -->
+<div class="bg-white/25 rounded-2xl p-4 shadow-sm border border-white/30 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-3">
+<span class="bg-error text-white text-[10px] px-2 py-0.5 rounded-full font-bold">CRITICAL</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-center min-w-[60px]">
+<p class="text-xs text-white/70 font-label">Queue</p>
+<p class="text-2xl font-black text-white font-headline leading-none">P-042</p>
+</div>
+<div>
+<p class="text-xs text-white/60 font-label">HN 67-002341</p>
+<p class="text-base font-bold text-white font-body leading-tight">Mr. Somchai Rakdee</p>
+<p class="text-xs text-white/80 mt-1">4 Items • Urgent Filling</p>
+</div>
+</div>
+</div>
+<!-- Queue Items -->
+<div class="hover:bg-white/10 rounded-2xl p-4 transition-all cursor-pointer border border-transparent hover:border-white/10">
+<div class="flex items-center gap-4">
+<div class="text-center min-w-[60px]">
+<p class="text-xs text-white/50 font-label">Queue</p>
+<p class="text-2xl font-black text-white/80 font-headline leading-none">P-043</p>
+</div>
+<div>
+<p class="text-xs text-white/40 font-label">HN 67-011209</p>
+<p class="text-base font-bold text-white/80 font-body leading-tight">Mrs. Wandee Srinak</p>
+<p class="text-xs text-white/50 mt-1">2 Items • Standard</p>
+</div>
+</div>
+</div>
+<div class="hover:bg-white/10 rounded-2xl p-4 transition-all cursor-pointer border border-transparent hover:border-white/10">
+<div class="flex items-center gap-4">
+<div class="text-center min-w-[60px]">
+<p class="text-xs text-white/50 font-label">Queue</p>
+<p class="text-2xl font-black text-white/80 font-headline leading-none">P-044</p>
+</div>
+<div>
+<p class="text-xs text-white/40 font-label">HN 67-055672</p>
+<p class="text-base font-bold text-white/80 font-body leading-tight">Mr. John Doe</p>
+<p class="text-xs text-white/50 mt-1">7 Items • Waiting Check</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Dispensing Details -->
+<div class="col-span-8 flex flex-col gap-6">
+<!-- Patient Info & Alerts -->
+<div class="glass-panel rounded-3xl p-8 flex justify-between items-start gap-6">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<h2 class="text-2xl font-black text-white font-headline">Somchai Rakdee</h2>
+<span class="text-white/60 bg-white/10 px-3 py-1 rounded-full text-xs">M / 54 Years</span>
+</div>
+<div class="flex gap-4">
+<div class="bg-error/20 border border-error/30 rounded-2xl p-4 flex items-start gap-3 flex-1">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div>
+<p class="text-xs font-bold text-white/90 uppercase tracking-tighter">Allergies (แพ้ยา)</p>
+<p class="text-sm text-error-container font-bold">PENICILLIN (Anaphylaxis)</p>
+</div>
+</div>
+<div class="bg-tertiary-container/30 border border-tertiary-container/40 rounded-2xl p-4 flex items-start gap-3 flex-1">
+<span class="material-symbols-outlined text-on-tertiary-container">info</span>
+<div>
+<p class="text-xs font-bold text-white/90 uppercase tracking-tighter">Drug Interaction</p>
+<p class="text-sm text-on-tertiary-container font-bold">Aspirin + Warfarin (Moderate)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white/10 rounded-2xl p-4 flex flex-col items-center">
+<span class="material-symbols-outlined text-white text-3xl">qr_code_scanner</span>
+<p class="text-[10px] text-white/60 mt-1 uppercase font-bold">Scan Presc.</p>
+</div>
+</div>
+<!-- Medication Checklist -->
+<div class="glass-panel rounded-3xl overflow-hidden flex flex-col">
+<div class="p-6 bg-white/10 flex justify-between items-center border-b border-white/10">
+<div class="flex items-center gap-4">
+<h3 class="text-white font-bold font-headline">Prescription Items</h3>
+<div class="flex items-center bg-white/10 rounded-full px-3 py-1">
+<span class="text-xs font-bold text-white">4 Items Total</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative">
+<input class="bg-white text-primary rounded-full px-4 py-2 pl-10 text-xs font-bold w-64 border-none shadow-md" placeholder="Scan Barcode to Verify..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary text-lg">barcode_scanner</span>
+</div>
+</div>
+</div>
+<div class="p-2">
+<!-- Med Row 1 -->
+<div class="bg-white/10 m-2 rounded-2xl p-4 flex items-center gap-6 border border-white/5 hover:bg-white/20 transition-all">
+<div class="w-20 h-20 rounded-xl bg-white overflow-hidden flex-shrink-0 shadow-lg border-2 border-white/30">
+<img alt="Medication Pill" data-alt="close up of a white and blue capsule pill isolated on a clinical white background with soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_vHMo4HbtQmGzDGb-J4U0ip_xuHzEKqipElnBADEy_QVdTU17QeALpCmwDdkiLCS3k1gR13gU-mMwbvmVOXuKk6FhP_7pmUxh1o32xgG1FUit00dO0J7suKPdyvDTlHSCS0QrFdRT9e9K20fld9mGfnPAyz2YZemn0MbOz1F1RFJbNg2Oi4eD1elOKkO4P_ib8qPoiHDfG-EWV5vqEdAvPIUJd2BsrOpFdZWnAAZ3bET5O05gFURHT7PjyVGTlGZAWy4nEIEH8dY"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="text-white font-bold text-lg font-headline">Amoxicillin 500mg</h4>
+<p class="text-white/80 text-sm font-body">รับประทานครั้งละ 1 เม็ด วันละ 3 ครั้ง หลังอาหาร (เช้า-กลางวัน-เย็น)</p>
+<p class="text-xs text-white/50 mt-1 italic italic">Take 1 tablet 3 times a day after meals.</p>
+</div>
+<div class="text-right">
+<p class="text-2xl font-black text-white font-headline">Qty: 21</p>
+<p class="text-[10px] text-white/60 uppercase font-bold">Capsules</p>
+</div>
+</div>
+<div class="mt-4 flex gap-2">
+<span class="bg-green-500/20 text-green-300 text-[10px] px-2 py-1 rounded-full font-bold border border-green-500/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">check_circle</span> VERIFIED
+                                    </span>
+<span class="bg-secondary/20 text-secondary-fixed text-[10px] px-2 py-1 rounded-full font-bold border border-secondary/30">STOCK: 1,420</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<button class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/30 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-white">print</span>
+</button>
+</div>
+</div>
+<!-- Med Row 2 -->
+<div class="bg-white/10 m-2 rounded-2xl p-4 flex items-center gap-6 border border-white/5 hover:bg-white/20 transition-all border-l-4 border-l-error">
+<div class="w-20 h-20 rounded-xl bg-white overflow-hidden flex-shrink-0 shadow-lg border-2 border-white/30">
+<img alt="Medication Tablet" data-alt="circular white medical tablets scattered on a clean surface with a healthcare aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN292YhGu90p8RZie__hIhQq0nLg9YhTPT4f_mxjiyT-9CKByPi3ptZCtJYmllyvfQtayP4e2f5MDHRg2WEZ8zsutixOLfeZzk4p4RCc5t7D7LB9lEIP1_oMXB57ZiF0keq8LSTowcyD5FHjokDCS13MeDC_iiR9dUPciePz-zV-TRZ8HqNChPjjreJGaXqT-1rB3ipFIRarWCxBbOKnJ2-9d-B8qGFLB1TIP2LC1K37fTPwrmgnrOnzzf5y8dQjWHD1H67GdhwJ4"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="text-white font-bold text-lg font-headline">Warfarin 5mg</h4>
+<p class="text-white/80 text-sm font-body">รับประทานครั้งละ 1 เม็ด วันละ 1 ครั้ง ก่อนนอน (ยาระวังสูง)</p>
+<p class="text-xs text-white/50 mt-1 italic">Take 1 tablet once daily at bedtime. High Alert Med.</p>
+</div>
+<div class="text-right">
+<p class="text-2xl font-black text-white font-headline">Qty: 30</p>
+<p class="text-[10px] text-white/60 uppercase font-bold">Tablets</p>
+</div>
+</div>
+<div class="mt-4 flex gap-2">
+<span class="bg-error/20 text-error-container text-[10px] px-2 py-1 rounded-full font-bold border border-error/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">pending</span> SCAN REQUIRED
+                                    </span>
+<span class="bg-tertiary-container/40 text-on-tertiary-container text-[10px] px-2 py-1 rounded-full font-bold border border-tertiary/30">DRUG INTERACTION ALERT</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<button class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/30 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-white">print</span>
+</button>
+</div>
+</div>
+<!-- Med Row 3 -->
+<div class="bg-white/5 m-2 rounded-2xl p-4 flex items-center gap-6 border border-white/5 opacity-80">
+<div class="w-20 h-20 rounded-xl bg-white overflow-hidden flex-shrink-0 shadow-lg grayscale">
+<img alt="Medication Bottle" data-alt="dark glass pharmaceutical bottle with a clean dropper lid on a soft medical grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVjOV_tEyfu2UO_Sf6KcP2WJobrX5sN573MrCskSRDDNGTAVFHMErUH3w0NHHwSFVyt6AppAv1l4tIlAkE4tzwP9HLcvf2ZvkIokwuCiITrKDBjqUFEayzTcHS__1SOhPgdAdmXZTPGgPNpx1S8FzHRrH9o4D_L69phyvfbd6KDTNGKRQ8PipFMktW-g9rvFRFnGVSbVuYmXqmPhzZMSbepJHrvNInDglkE8AdGtfSUDXjmN4qOdYPBN5g_xpNfHpbhwD9WnBhrKo"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="text-white/70 font-bold text-lg font-headline">Paracetamol 500mg</h4>
+<p class="text-white/50 text-sm font-body">รับประทานเมื่อมีอาการ ทุก 4-6 ชม.</p>
+</div>
+<div class="text-right">
+<p class="text-2xl font-black text-white/40 font-headline">Qty: 10</p>
+<p class="text-[10px] text-white/30 uppercase font-bold">Tablets</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<button class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/20 cursor-not-allowed">
+<span class="material-symbols-outlined">print</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="p-6 bg-white/10 flex justify-end items-center gap-4">
+<button class="px-6 py-3 rounded-2xl border border-white/20 text-white font-bold hover:bg-white/10 transition-colors">
+                            Print All Labels
+                        </button>
+<button class="px-8 py-3 rounded-2xl bg-gradient-to-r from-secondary to-secondary-fixed text-on-secondary-container font-black font-headline shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">check_circle</span> DISPENSE COMPLETE
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Label Preview Floating Card (Editorial Concept) -->
+<div class="fixed bottom-12 right-12 w-80 glass-panel rounded-3xl p-6 shadow-[0_30px_60px_rgba(0,0,0,0.3)] border border-white/40 translate-y-0 opacity-100 transition-all">
+<div class="flex justify-between items-start mb-4">
+<h4 class="text-xs font-black text-white tracking-widest uppercase">Label Preview</h4>
+<span class="material-symbols-outlined text-white/60 cursor-pointer">close</span>
+</div>
+<div class="bg-white rounded-xl p-4 text-black shadow-inner">
+<div class="flex justify-between border-b pb-2 mb-2">
+<span class="text-[10px] font-bold">GUUARDIAN HEALTH</span>
+<span class="text-[10px]">HN: 67-002341</span>
+</div>
+<p class="text-[14px] font-bold">สมชาย รักดี</p>
+<p class="text-[16px] font-black mt-1">Amoxicillin 500mg</p>
+<p class="text-[12px] mt-1 font-semibold leading-tight">รับประทานครั้งละ 1 เม็ด วันละ 3 ครั้ง หลังอาหาร (เช้า-กลางวัน-เย็น)</p>
+<p class="text-[10px] italic text-slate-500">Take 1 cap 3 times daily after meals.</p>
+<div class="mt-3 flex justify-between items-end">
+<div class="w-12 h-12 bg-slate-200 rounded">
+<img alt="Drug Label Small" data-alt="micro view of blue and white capsules for medical identification" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk2fR_lTTBdc1XWYy9a4z1ZNIIpPvuiPy02TGx0Ucj78xH1aIFfOlF5O0LepdirSzwz3RQHVe5mdNWeA2x6uXCVMZ1cL85kpQWHRLvo_eJ-AmNbXdGPHULwrhWWwcS5CBXS6B06pa6-OKCkPIyM4sRQhO3hrs-90z6xK0vyTzEG3w3okROzDynCqCh63Y7xoxbgmPKLy5SQuXwF28S2NmeNgcFwlGn8Zj4165eufxjc1w7TA9x_BGk1Br5MQzzRFUAl1bK5lQMcXo"/>
+</div>
+<p class="text-[10px] font-bold">QTY: 21 CAPS</p>
+</div>
+</div>
+<button class="w-full mt-4 py-3 bg-white/20 rounded-xl text-white font-bold text-xs hover:bg-white/30 transition-colors">
+            Confirm Print (Thermal)
+        </button>
+</div>
+</body>
+</html>
