@@ -150,7 +150,7 @@ const PEOPLE = [
 // Columns for the org chart (exclude PM — PM sits above all)
 const COLUMNS = [
   {
-    label: 'Solution Analyst', color: '#f39c12', ids: ['sa-senior', 'sa', 'integration', 'devops'],
+    label: 'Solution Analyst', color: '#f39c12', ids: ['sa-senior', 'sa', 'devops'],
     sub: { label: 'QA / Test', color: '#00b894', ids: ['qa-lead', 'qa-tester'] },
   },
   {
@@ -160,6 +160,7 @@ const COLUMNS = [
   { label: 'UX / UI', color: '#fd79a8', ids: ['ux-lead', 'ui'] },
   { label: 'Backend Dev', color: '#e17055', ids: ['be-lead', 'be-mid-1', 'be-mid-2', 'be-jr'] },
   { label: 'Frontend Dev', color: '#0984e3', ids: ['fe-lead', 'fe-mid-1', 'fe-mid-2', 'fe-jr'] },
+  { label: 'Integration', color: '#e17055', ids: ['integration'] },
 ]
 
 const getPerson = (id) => PEOPLE.find(p => p.id === id)
@@ -375,7 +376,7 @@ export default function PageTeam() {
         {/* ── 5 Team Columns ── */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)',
+          gridTemplateColumns: 'repeat(6, 1fr)',
           gap: 10,
           alignItems: 'start',
           overflowX: 'auto',
