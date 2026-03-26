@@ -4,6 +4,14 @@ import { PageWrapper, PageHeader, GlassCard, SectionTitle } from '../components/
 // ── All 21 individual positions ───────────────────────────────────────────────
 
 const PEOPLE = [
+  // Project Owner
+  {
+    id: 'po', role: 'Project Owner', level: 'lead',
+    icon: '👑', color: '#fdcb6e',
+    jd: ['กำหนด Vision และ Business Goal ของระบบ HIS', 'อนุมัติ Requirement และ Scope', 'ตัดสินใจลำดับความสำคัญของ Feature', 'รับผิดชอบผลลัพธ์ทางธุรกิจ'],
+    requirements: ['ผู้บริหาร รพ. / ผู้อำนวยการ / CIO', 'เข้าใจ Workflow โรงพยาบาล', 'มีอำนาจอนุมัติงบประมาณ', 'ประสานงาน Stakeholders ระดับสูง'],
+  },
+
   // PM
   {
     id: 'pm', role: 'Project Manager', level: 'lead',
@@ -158,9 +166,11 @@ const COLUMNS = [
     sub: { label: 'Support & Trainer', color: '#a29bfe', ids: ['trainer', 'support'] },
   },
   { label: 'UX / UI', color: '#fd79a8', ids: ['ux-lead', 'ui'] },
-  { label: 'Backend Dev', color: '#e17055', ids: ['be-lead', 'be-mid-1', 'be-mid-2', 'be-jr'] },
+  {
+    label: 'Backend Dev', color: '#e17055', ids: ['be-lead', 'be-mid-1', 'be-mid-2', 'be-jr'],
+    sub: { label: 'Integration', color: '#00cec9', ids: ['integration'] },
+  },
   { label: 'Frontend Dev', color: '#0984e3', ids: ['fe-lead', 'fe-mid-1', 'fe-mid-2', 'fe-jr'] },
-  { label: 'Integration', color: '#e17055', ids: ['integration'] },
 ]
 
 const getPerson = (id) => PEOPLE.find(p => p.id === id)
@@ -283,10 +293,9 @@ function PersonNode({ id, onHover, onLeave }) {
       <span style={{ fontSize: 14, flexShrink: 0, lineHeight: 1 }}>{person.icon}</span>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{
-          fontSize: 10, fontWeight: isLead ? 800 : 600,
+          fontSize: 12, fontWeight: 400,
           color: '#fff',
           fontFamily: "'Kanit', sans-serif", lineHeight: 1.3,
-          whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
         }}>
           {person.role}
         </div>
@@ -300,6 +309,41 @@ function PersonNode({ id, onHover, onLeave }) {
           LEAD
         </span>
       )}
+    </div>
+  )
+}
+
+// ── PO Node ───────────────────────────────────────────────────────────────────
+
+function PONode({ onHover, onLeave }) {
+  const po = getPerson('po')
+  const ref = useRef(null)
+  return (
+    <div
+      ref={ref}
+      onMouseEnter={() => onHover(po, ref.current.getBoundingClientRect())}
+      onMouseLeave={onLeave}
+      style={{
+        background: `${po.color}20`,
+        border: `2px solid ${po.color}66`,
+        borderRadius: 14,
+        padding: '12px 28px',
+        cursor: 'default',
+        textAlign: 'center',
+        display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 4,
+      }}
+    >
+      <span style={{ fontSize: 28 }}>{po.icon}</span>
+      <div style={{ fontSize: 13, fontWeight: 800, color: '#fff', fontFamily: "'Kanit', sans-serif" }}>
+        {po.role}
+      </div>
+      <span style={{
+        fontSize: 9, fontWeight: 900, color: po.color,
+        background: `${po.color}25`, border: `1px solid ${po.color}55`,
+        padding: '2px 8px', borderRadius: 6, letterSpacing: 0.5,
+      }}>
+        1 คน
+      </span>
     </div>
   )
 }
@@ -362,27 +406,39 @@ export default function PageTeam() {
       <GlassCard style={{ padding: '24px 20px' }}>
         <SectionTitle>ORGANIZATION CHART — 21 Positions</SectionTitle>
 
-        {/* ── PM ── */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 0 }}>
-          <PMNode onHover={handleHover} onLeave={handleLeave} />
-        </div>
+        {/* ── Org chart — single scrollable container ── */}
+        <div style={{ overflowX: 'auto' }}>
+        <div style={{ minWidth: 820, width: '100%' }}>
 
-        {/* PM → horizontal bar */}
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <div style={{ width: 2, height: 18, background: 'rgba(255,255,255,0.15)' }} />
-        </div>
-        <div style={{ height: 2, background: 'rgba(255,255,255,0.12)', borderRadius: 1, margin: '0 3%' }} />
+          {/* Project Owner */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 0 }}>
+            <PONode onHover={handleHover} onLeave={handleLeave} />
+          </div>
 
-        {/* ── 5 Team Columns ── */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(6, 1fr)',
-          gap: 10,
-          alignItems: 'start',
-          overflowX: 'auto',
-          minWidth: 760,
-          paddingBottom: 4,
-        }}>
+          {/* PO → PM connector */}
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ width: 2, height: 14, background: 'rgba(255,255,255,0.2)' }} />
+          </div>
+
+          {/* PM */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 0 }}>
+            <PMNode onHover={handleHover} onLeave={handleLeave} />
+          </div>
+
+          {/* PM → horizontal bar */}
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ width: 2, height: 18, background: 'rgba(255,255,255,0.15)' }} />
+          </div>
+          <div style={{ height: 2, background: 'rgba(255,255,255,0.12)', borderRadius: 1, margin: '0 3%' }} />
+
+          {/* ── 5 Team Columns ── */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(5, 1fr)',
+            gap: 10,
+            alignItems: 'start',
+            paddingBottom: 4,
+          }}>
           {COLUMNS.map(col => {
             const members = col.ids.map(id => getPerson(id)).filter(Boolean)
             return (
@@ -463,6 +519,8 @@ export default function PageTeam() {
               </div>
             )
           })}
+          </div>
+        </div>
         </div>
 
         {/* Legend */}

@@ -32,14 +32,14 @@ const steps = [
     emoji: "🔬", color: "#fff", dept: "ห้องปฏิบัติการ",
   },
   {
-    num: 7, title: "รับยา", badge: "",
-    his: "ระบบเภสัชกรรม", features: ["จัดยา Barcode + ฉลากไทย", "Drug Interaction Check", "คิวรับยา + คำปรึกษา"],
-    emoji: "💊", color: "#fff", dept: "ห้องยา / เภสัชกรรม",
-  },
-  {
-    num: 8, title: "ชำระเงิน", badge: "",
+    num: 7, title: "ชำระเงิน", badge: "",
     his: "ระบบการเงิน", features: ["คำนวณค่ารักษาอัตโนมัติ", "หักสิทธิ e-Claim", "ใบเสร็จ / QR Payment"],
     emoji: "💰", color: "#fff", dept: "การเงิน + เบิกจ่าย",
+  },
+  {
+    num: 8, title: "รับยา", badge: "",
+    his: "ระบบเภสัชกรรม", features: ["จัดยา Barcode + ฉลากไทย", "Drug Interaction Check", "คิวรับยา + คำปรึกษา"],
+    emoji: "💊", color: "#fff", dept: "ห้องยา / เภสัชกรรม",
   },
   {
     num: 9, title: "กลับบ้าน\nปลอดภัย", badge: "GO HOME",
