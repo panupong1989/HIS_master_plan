@@ -12,12 +12,14 @@ import PageTeam from './pages/PageTeam'
 import PagePlan from './pages/PagePlan'
 import PageDashboard from './pages/PageDashboard'
 import PageHISExample from './pages/PageHISExample'
+import PageHISIntro from './pages/PageHISIntro'
 
 export default function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<Page1PatientJourney />} />
+        <Route path="/" element={<Navigate to="/his-example/intro" replace />} />
+        <Route path="/patient-journey" element={<Page1PatientJourney />} />
         <Route path="/registration" element={<Page2Registration />} />
         <Route path="/opd" element={<Page3OPD />} />
         <Route path="/lab" element={<Page4LabRadiology />} />
@@ -28,7 +30,8 @@ export default function App() {
         <Route path="/team" element={<PageTeam />} />
         <Route path="/plan" element={<PagePlan />} />
         <Route path="/dashboard" element={<PageDashboard />} />
-        <Route path="/his-example" element={<Navigate to="/his-example/main-layout" replace />} />
+        <Route path="/his-example" element={<Navigate to="/his-example/intro" replace />} />
+        <Route path="/his-example/intro" element={<PageHISIntro />} />
         <Route path="/his-example/:screenId" element={<PageHISExample />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

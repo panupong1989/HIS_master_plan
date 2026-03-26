@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 
 const steps = [
   {
-    num: 1, title: "คัดกรอง\nลงทะเบียน", badge: "START HERE",
-    his: "ระบบลงทะเบียน", features: ["Scan บัตร ปชช. Smart Card", "เปิด HN อัตโนมัติ", "Vital Signs / Triage"],
-    emoji: "🏥", color: "#fff", dept: "จุดคัดกรอง / ห้องบัตร",
+    num: 1, title: "ลงทะเบียน", badge: "START HERE",
+    his: "ระบบลงทะเบียน", features: ["Scan บัตร ปชช. Smart Card", "เปิด HN อัตโนมัติ"],
+    emoji: "🏥", color: "#fff", dept: "ห้องบัตร",
   },
   {
     num: 2, title: "ตรวจสอบสิทธิ\nการรักษา", badge: "บังคับ!",
@@ -17,27 +17,32 @@ const steps = [
     emoji: "🎫", color: "#fff", dept: "ระบบคิว + นัดหมาย",
   },
   {
-    num: 4, title: "พบแพทย์\nตรวจรักษา", badge: "",
+    num: 4, title: "จุดซักประวัติ", badge: "",
+    his: "ระบบบันทึกประวัติ", features: ["บันทึกอาการเบื้องต้น", "วัด Vital Signs", "บันทึกประวัติการแพ้ยา"],
+    emoji: "📋", color: "#fff", dept: "จุดซักประวัติ / พยาบาล",
+  },
+  {
+    num: 5, title: "พบแพทย์\nตรวจรักษา", badge: "",
     his: "ระบบห้องตรวจ OPD", features: ["EMR ซักประวัติ ตรวจร่างกาย", "วินิจฉัย ICD-10", "สั่งยา Drug Alert", "สั่ง Lab / X-Ray"],
     emoji: "🩺", color: "#fff", dept: "ห้องตรวจ OPD + EMR",
   },
   {
-    num: 5, title: "เจาะเลือด\nLab / X-Ray", badge: "",
+    num: 6, title: "เจาะเลือด\nLab / X-Ray", badge: "",
     his: "ระบบ Lab (LIS)", features: ["Barcode สติกเกอร์ติดหลอด", "เชื่อมเครื่อง HL7", "Critical Value Alert"],
     emoji: "🔬", color: "#fff", dept: "ห้องปฏิบัติการ",
   },
   {
-    num: 6, title: "รับยา", badge: "",
+    num: 7, title: "รับยา", badge: "",
     his: "ระบบเภสัชกรรม", features: ["จัดยา Barcode + ฉลากไทย", "Drug Interaction Check", "คิวรับยา + คำปรึกษา"],
     emoji: "💊", color: "#fff", dept: "ห้องยา / เภสัชกรรม",
   },
   {
-    num: 7, title: "ชำระเงิน", badge: "",
+    num: 8, title: "ชำระเงิน", badge: "",
     his: "ระบบการเงิน", features: ["คำนวณค่ารักษาอัตโนมัติ", "หักสิทธิ e-Claim", "ใบเสร็จ / QR Payment"],
     emoji: "💰", color: "#fff", dept: "การเงิน + เบิกจ่าย",
   },
   {
-    num: 8, title: "กลับบ้าน\nปลอดภัย", badge: "GO HOME",
+    num: 9, title: "กลับบ้าน\nปลอดภัย", badge: "GO HOME",
     his: "ระบบนัดหมาย + 43 แฟ้ม", features: ["นัดตรวจครั้งถัดไป", "แจ้งเตือน LINE OA", "สร้าง 43 แฟ้ม → HDC"],
     emoji: "🏠", color: "#90EE90", dept: "เวชระเบียน + สถิติ",
   },
@@ -80,11 +85,10 @@ export default function Page1PatientJourney() {
               textShadow: "0 2px 20px rgba(0,0,0,0.15)",
               lineHeight: 1.1,
             }}>
-              HIS คืออะไร?
+              Patient Journey
             </h1>
             <p style={{ fontSize: 14, color: "rgba(255,255,255,0.75)", margin: "6px 0 0", maxWidth: 400, lineHeight: 1.6 }}>
-              ระบบสารสนเทศที่จัดการข้อมูล<strong style={{ color: "#fff" }}>ทั้งหมด</strong>ของโรงพยาบาล
-              <br />ตั้งแต่ผู้ป่วยเดินเข้า รพ. จนถึงกลับบ้าน
+              ขั้นตอนการเข้ารับบริการของผู้ป่วยนอก ตั้งแต่ก้าวแรกที่เข้า รพ. จนกลับบ้าน
             </p>
           </div>
 
@@ -110,7 +114,7 @@ export default function Page1PatientJourney() {
 
         {/* SVG Path */}
         <svg
-          viewBox="0 0 960 620"
+          viewBox="0 0 960 640"
           style={{ position: "absolute", top: 0, left: 20, width: "calc(100% - 40px)", height: "100%", pointerEvents: "none", zIndex: 1 }}
           preserveAspectRatio="xMidYMid meet"
         >
@@ -122,20 +126,43 @@ export default function Page1PatientJourney() {
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
+            {/* Arrowhead for main path */}
+            <marker id="arrowMain" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="rgba(255,255,255,0.4)" />
+            </marker>
+            {/* Arrowhead for bypass */}
+            <marker id="arrowBypass" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#feca57" />
+            </marker>
           </defs>
+
+          {/* Main snake path — glow */}
           <path
-            d="M 140 100 C 200 100, 280 100, 360 100 C 440 100, 520 100, 600 100 C 680 100, 780 100, 830 100 C 900 100, 920 150, 920 200 C 920 250, 900 310, 830 310 C 760 310, 680 310, 600 310 C 520 310, 440 310, 360 310 C 280 310, 200 310, 140 310 C 60 310, 40 360, 40 410 C 40 460, 60 510, 140 510 C 200 510, 300 510, 400 510"
+            d="M 140 100 C 300 100, 620 100, 820 100
+               C 900 100, 920 150, 920 210
+               C 920 270, 900 310, 820 310
+               C 620 310, 300 310, 140 310
+               C 60 310, 40 360, 40 420
+               C 40 470, 60 510, 140 510
+               C 300 510, 620 510, 820 510"
             fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="8" strokeLinecap="round"
             strokeDasharray="16 8" filter="url(#pathGlow)"
-            style={{ strokeDashoffset: loaded ? 0 : 2000, transition: "stroke-dashoffset 3s ease 0.5s" }}
+            style={{ strokeDashoffset: loaded ? 0 : 3000, transition: "stroke-dashoffset 3s ease 0.5s" }}
           />
           <path
-            d="M 140 100 C 200 100, 280 100, 360 100 C 440 100, 520 100, 600 100 C 680 100, 780 100, 830 100 C 900 100, 920 150, 920 200 C 920 250, 900 310, 830 310 C 760 310, 680 310, 600 310 C 520 310, 440 310, 360 310 C 280 310, 200 310, 140 310 C 60 310, 40 360, 40 410 C 40 460, 60 510, 140 510 C 200 510, 300 510, 400 510"
+            d="M 140 100 C 300 100, 620 100, 820 100
+               C 900 100, 920 150, 920 210
+               C 920 270, 900 310, 820 310
+               C 620 310, 300 310, 140 310
+               C 60 310, 40 360, 40 420
+               C 40 470, 60 510, 140 510
+               C 300 510, 620 510, 820 510"
             fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="28" strokeLinecap="round"
           />
+
         </svg>
 
-        {/* Row 1 */}
+        {/* Row 1: steps 1, 2, 3 */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, marginBottom: 28, position: "relative", zIndex: 2 }}>
           {steps.slice(0, 3).map((step, i) => (
             <StepNode key={step.num} step={step} index={i} active={activeStep === step.num}
@@ -143,7 +170,7 @@ export default function Page1PatientJourney() {
           ))}
         </div>
 
-        {/* Row 2 (reversed) */}
+        {/* Row 2 (reversed): step 6 (Lab), 5 (พบแพทย์), 4 (จุดซักประวัติ) */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, marginBottom: 28, position: "relative", zIndex: 2 }}>
           {[steps[5], steps[4], steps[3]].map((step, i) => (
             <StepNode key={step.num} step={step} index={i + 3} active={activeStep === step.num}
@@ -151,13 +178,12 @@ export default function Page1PatientJourney() {
           ))}
         </div>
 
-        {/* Row 3 */}
+        {/* Row 3: steps 7, 8, 9 */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, position: "relative", zIndex: 2 }}>
-          {steps.slice(6, 8).map((step, i) => (
+          {steps.slice(6, 9).map((step, i) => (
             <StepNode key={step.num} step={step} index={i + 6} active={activeStep === step.num}
               onClick={() => setActiveStep(activeStep === step.num ? null : step.num)} loaded={loaded} />
           ))}
-          <div />
         </div>
       </div>
 
@@ -175,26 +201,6 @@ export default function Page1PatientJourney() {
         </span>
       </div>
 
-      {/* Footer */}
-      <div style={{ maxWidth: 1000, margin: "24px auto 0", padding: "0 20px", opacity: loaded ? 1 : 0, transition: "all 1s ease 1.8s" }}>
-        <div style={{
-          background: "rgba(255,255,255,0.08)", borderRadius: 12,
-          padding: "12px 20px", display: "flex", justifyContent: "space-between",
-          alignItems: "center", flexWrap: "wrap", gap: 10,
-          border: "1px solid rgba(255,255,255,0.1)",
-        }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontFamily: "'Kanit', sans-serif", fontWeight: 700, fontSize: 14, color: "#fff" }}>
-              Hospital Information System
-            </span>
-            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.5)" }}>|</span>
-            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.6)" }}>ระบบสารสนเทศโรงพยาบาลรัฐ</span>
-          </div>
-          <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", fontFamily: "'JetBrains Mono', monospace" }}>
-            18 แผนก · 103 ฟังก์ชัน · ครบวงจร
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

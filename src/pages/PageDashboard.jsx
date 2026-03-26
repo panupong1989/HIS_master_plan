@@ -2,24 +2,24 @@ import { useState } from 'react'
 import { PageWrapper, PageHeader, GlassCard, SectionTitle } from '../components/PageWrapper'
 
 const departments = [
-  { name: 'ลงทะเบียน', dept: 'จุดคัดกรอง / ห้องบัตร', funcs: 7, phase: 1, progress: 0, status: 'planned', color: '#667eea', icon: '📋' },
-  { name: 'คิว & นัดหมาย', dept: 'ระบบคิว / นัดหมาย', funcs: 8, phase: 1, progress: 0, status: 'planned', color: '#667eea', icon: '🎫' },
-  { name: 'ห้องตรวจ OPD', dept: 'ห้องตรวจ OPD', funcs: 10, phase: 2, progress: 0, status: 'planned', color: '#f39c12', icon: '🩺' },
-  { name: 'ห้องฉุกเฉิน ER', dept: 'ห้องฉุกเฉิน', funcs: 5, phase: 2, progress: 0, status: 'planned', color: '#f39c12', icon: '🚑' },
-  { name: 'Lab (LIS)', dept: 'ห้องปฏิบัติการ', funcs: 7, phase: 2, progress: 0, status: 'planned', color: '#f39c12', icon: '🔬' },
-  { name: 'รังสีวิทยา (RIS)', dept: 'ห้อง X-Ray / CT', funcs: 4, phase: 2, progress: 0, status: 'planned', color: '#f39c12', icon: '📡' },
-  { name: 'เภสัชกรรม', dept: 'ห้องยา', funcs: 7, phase: 2, progress: 0, status: 'planned', color: '#f39c12', icon: '💊' },
-  { name: 'ผู้ป่วยใน (IPD)', dept: 'หอผู้ป่วย', funcs: 7, phase: 2, progress: 0, status: 'planned', color: '#f39c12', icon: '🛏️' },
+  { name: 'ลงทะเบียน', dept: 'จุดคัดกรอง / ห้องบัตร', funcs: 7, phase: 1, progress: 100, status: 'done', color: '#667eea', icon: '📋' },
+  { name: 'คิว & นัดหมาย', dept: 'ระบบคิว / นัดหมาย', funcs: 8, phase: 1, progress: 75, status: 'active', color: '#667eea', icon: '🎫' },
+  { name: 'คัดกรอง & Triage', dept: 'จุดคัดกรอง', funcs: 4, phase: 1, progress: 50, status: 'active', color: '#667eea', icon: '🏥' },
+  { name: 'ห้องตรวจ OPD', dept: 'ห้องตรวจ OPD', funcs: 10, phase: 2, progress: 60, status: 'active', color: '#f39c12', icon: '🩺' },
+  { name: 'Lab (LIS)', dept: 'ห้องปฏิบัติการ', funcs: 7, phase: 2, progress: 43, status: 'active', color: '#f39c12', icon: '🔬' },
+  { name: 'เภสัชกรรม', dept: 'ห้องยา', funcs: 7, phase: 2, progress: 57, status: 'active', color: '#f39c12', icon: '💊' },
+  { name: 'ห้องฉุกเฉิน ER', dept: 'ห้องฉุกเฉิน', funcs: 5, phase: 2, progress: 40, status: 'active', color: '#f39c12', icon: '🚑' },
+  { name: 'รังสีวิทยา (RIS)', dept: 'ห้อง X-Ray / CT', funcs: 4, phase: 2, progress: 25, status: 'active', color: '#f39c12', icon: '📡' },
+  { name: 'ผู้ป่วยใน (IPD)', dept: 'หอผู้ป่วย', funcs: 7, phase: 2, progress: 14, status: 'active', color: '#f39c12', icon: '🛏️' },
+  { name: 'Screening / คัดกรอง', dept: 'คลินิก NCD / คัดกรอง', funcs: 9, phase: 2, progress: 33, status: 'active', color: '#f39c12', icon: '❤️' },
   { name: 'ห้องผ่าตัด (OR)', dept: 'ห้องผ่าตัด', funcs: 4, phase: 2, progress: 0, status: 'planned', color: '#f39c12', icon: '🔪' },
-  { name: 'การเงิน & e-Claim', dept: 'การเงิน / เบิกจ่าย', funcs: 8, phase: 3, progress: 0, status: 'planned', color: '#2ed573', icon: '💰' },
+  { name: 'การเงิน & e-Claim', dept: 'การเงิน / เบิกจ่าย', funcs: 8, phase: 3, progress: 25, status: 'active', color: '#2ed573', icon: '💰' },
+  { name: 'เชื่อมต่อภายนอก', dept: '43 แฟ้ม / HDC / HIE', funcs: 7, phase: 3, progress: 14, status: 'active', color: '#2ed573', icon: '🔗' },
+  { name: 'บริหารระบบ', dept: 'Admin / IT', funcs: 6, phase: 3, progress: 17, status: 'active', color: '#2ed573', icon: '⚙️' },
   { name: 'พัสดุ & คลัง', dept: 'พัสดุ / คลังสินค้า', funcs: 3, phase: 3, progress: 0, status: 'planned', color: '#2ed573', icon: '📦' },
-  { name: 'บริหารระบบ', dept: 'Admin / IT', funcs: 6, phase: 3, progress: 0, status: 'planned', color: '#2ed573', icon: '⚙️' },
-  { name: 'เชื่อมต่อภายนอก', dept: '43 แฟ้ม / HDC / HIE', funcs: 7, phase: 3, progress: 0, status: 'planned', color: '#2ed573', icon: '🔗' },
-  { name: 'คัดกรอง & Triage', dept: 'จุดคัดกรอง', funcs: 4, phase: 1, progress: 0, status: 'planned', color: '#667eea', icon: '🏥' },
   { name: 'ทันตกรรม', dept: 'ห้องทันตกรรม', funcs: 2, phase: 3, progress: 0, status: 'planned', color: '#2ed573', icon: '🦷' },
   { name: 'แพทย์แผนไทย', dept: 'แพทย์แผนไทย', funcs: 2, phase: 3, progress: 0, status: 'planned', color: '#2ed573', icon: '🌿' },
   { name: 'ส่งเสริมสุขภาพ', dept: 'งานส่งเสริม / ป้องกัน', funcs: 3, phase: 3, progress: 0, status: 'planned', color: '#2ed573', icon: '💪' },
-  { name: 'Screening / คัดกรอง', dept: 'คลินิก NCD / คัดกรอง', funcs: 9, phase: 2, progress: 0, status: 'planned', color: '#f39c12', icon: '❤️' },
 ]
 
 const totalFunctions = departments.reduce((sum, d) => sum + d.funcs, 0)

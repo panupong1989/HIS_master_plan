@@ -1,348 +1,479 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { PageWrapper, PageHeader, GlassCard, SectionTitle } from '../components/PageWrapper'
 
-// idx: 0=PM, 1=BE Senior, 2=BE Mid, 3=FE Lead, 4=FE Junior, 5=SA, 6=BA, 7=QA, 8=DevOps, 9=Support Staff
-const coreTeam = [
+// ── All 21 individual positions ───────────────────────────────────────────────
+
+const PEOPLE = [
+  // PM
   {
-    role: 'Project Manager',
-    count: 1,
-    tasks: ['บริหารโปรเจค', 'ประสานงาน', 'ควบคุมคุณภาพ'],
-    color: '#667eea',
-    icon: '👨‍💼',
+    id: 'pm', role: 'Project Manager', level: 'lead',
+    icon: '👨‍💼', color: '#667eea',
+    jd: ['บริหารโปรเจค Timeline & Milestones', 'ประสานงาน Stakeholders ทุกฝ่าย', 'ควบคุม Risk, Budget, Quality', 'รายงานความคืบหน้าต่อผู้บริหาร'],
+    requirements: ['ประสบการณ์ PM ≥ 5 ปี', 'PMP / PRINCE2 (preferred)', 'เคยบริหารโปรเจค Healthcare / ERP', 'ทักษะสื่อสาร & Negotiation'],
+  },
+
+  // Solution Analyst team (4)
+  {
+    id: 'sa-senior', role: 'Solution Analyst (Senior)', level: 'lead',
+    icon: '🏗️', color: '#f39c12',
+    jd: ['ออกแบบ System Architecture HIS', 'กำหนด Tech Stack & Integration Pattern', 'Review Technical Design ทั้งหมด', 'ดูแล SA Team & Technical Direction'],
+    requirements: ['SA / Architect ≥ 7 ปี', 'HL7/FHIR, 43 แฟ้ม', 'Microservices, Cloud', 'เคยออกแบบ Healthcare System'],
   },
   {
-    role: 'Backend Developer (Senior)',
-    count: 1,
-    tasks: ['ออกแบบ DB', 'API', 'เชื่อมต่อระบบภาครัฐ'],
-    color: '#f39c12',
-    icon: '⚙️',
+    id: 'sa', role: 'Solution Analyst', level: 'mid',
+    icon: '🏗️', color: '#f39c12',
+    jd: ['วิเคราะห์ระบบ เขียน System Spec', 'สร้าง Data Flow & Sequence Diagram', 'ประสานงาน Dev Team & BA', 'จัดทำ Technical Documentation'],
+    requirements: ['SA ≥ 3 ปี', 'UML, ERD, DFD', 'เข้าใจ Healthcare Workflow', 'วิเคราะห์ระบบ Legacy'],
   },
   {
-    role: 'Backend Developer (Mid)',
-    count: 1,
-    tasks: ['พัฒนา API', 'Business Logic'],
-    color: '#e17055',
-    icon: '🔧',
+    id: 'integration', role: 'Integration Engineer', level: 'mid',
+    icon: '🔌', color: '#e17055',
+    jd: ['เชื่อมต่อระบบ สปสช. / กสธ.', 'พัฒนา HL7/FHIR Interface', 'ส่ง 43 แฟ้ม & e-Claim', 'Monitor & Maintain Integration'],
+    requirements: ['Integration ≥ 4 ปี', 'HL7/FHIR, 43 แฟ้ม, e-Claim', 'REST API, Message Queue, ESB', 'มาตรฐานสาธารณสุขไทย'],
   },
   {
-    role: 'Frontend Developer (Mid-Senior)',
-    count: 1,
-    tasks: ['React — หน้าจอหลักทั้งหมด'],
-    color: '#0984e3',
-    icon: '🎨',
+    id: 'devops', role: 'DevOps / Infra', level: 'mid',
+    icon: '🛡️', color: '#00cec9',
+    jd: ['จัดการ Server & Cloud Infrastructure', 'ตั้งค่า CI/CD Pipeline', 'Monitoring, Alerting, Logging', 'Security, Backup & DR'],
+    requirements: ['DevOps ≥ 3 ปี', 'Docker, Kubernetes, Linux', 'AWS / Azure / On-premise', 'PDPA / Healthcare Security'],
+  },
+
+  // Business Analyst team (2)
+  {
+    id: 'ba-lead', role: 'BA Lead', level: 'lead',
+    icon: '📋', color: '#6c5ce7',
+    jd: ['นำทีม BA & กำหนด Requirement Process', 'รวบรวม High-level Requirement', 'ประสานงาน PM, SA, และ รพ.', 'Review User Story & Acceptance Criteria'],
+    requirements: ['BA ≥ 5 ปี', 'เข้าใจ Workflow โรงพยาบาล', 'Jira, Confluence, Visio', 'Facilitation & Workshop'],
   },
   {
-    role: 'Frontend Developer (Junior-Mid)',
-    count: 1,
-    tasks: ['React — หน้าจอคิว, Display, Dashboard'],
-    color: '#00b894',
-    icon: '💻',
+    id: 'ba', role: 'Business Analyst', level: 'mid',
+    icon: '📋', color: '#6c5ce7',
+    jd: ['เขียน User Story & Use Case', 'จัดทำ Process Flow Diagram', 'ประสานงาน User ↔ Dev Team', 'สนับสนุน UAT & Go-live'],
+    requirements: ['BA ≥ 3 ปี', 'เข้าใจ Workflow รพ.', 'Excel, Confluence', 'สื่อสารดี ใจเย็น'],
+  },
+
+  // UX/UI team (2)
+  {
+    id: 'ux-lead', role: 'UX Lead', level: 'lead',
+    icon: '🎨', color: '#fd79a8',
+    jd: ['กำหนด UX Strategy & Research Plan', 'User Research & Usability Testing', 'สร้าง Design System', 'ดูแล UI Designer & Quality'],
+    requirements: ['UX ≥ 4 ปี', 'Figma, User Testing Tools', 'Medical UX Experience', 'Design Thinking'],
   },
   {
-    role: 'System Analyst',
-    count: 1,
-    tasks: ['วิเคราะห์ระบบ', 'ออกแบบ Workflow', 'เขียน Spec'],
-    color: '#e84393',
-    icon: '🔍',
+    id: 'ui', role: 'UI Designer', level: 'mid',
+    icon: '✏️', color: '#fd79a8',
+    jd: ['ออกแบบหน้าจอ HIS ทุกโมดูล', 'สร้าง Wireframe & Mockup', 'สร้าง Component Library', 'ประสานงานกับ Frontend Dev'],
+    requirements: ['UI/UX ≥ 2 ปี', 'Figma, Adobe XD', 'Responsive Design', 'เข้าใจ Healthcare UI Patterns'],
+  },
+
+  // Backend team (4)
+  {
+    id: 'be-lead', role: 'Backend Lead', level: 'lead',
+    icon: '⚙️', color: '#e17055',
+    jd: ['ออกแบบ Backend Architecture', 'Code Review & Coding Standards', 'Mentor Mid & Junior Dev', 'Database Design & Performance'],
+    requirements: ['Backend ≥ 5 ปี', 'Node.js / Java / Python', 'PostgreSQL, Redis, Docker', 'Clean Architecture / DDD'],
   },
   {
-    role: 'Business Analyst',
-    count: 1,
-    tasks: ['วิเคราะห์ Requirement', 'ประสานกับ รพ.', 'จัดทำเอกสาร'],
-    color: '#6c5ce7',
-    icon: '📋',
+    id: 'be-mid-1', role: 'Backend Developer (Mid)', level: 'mid',
+    icon: '⚙️', color: '#e17055',
+    jd: ['พัฒนา REST API ทุกโมดูล', 'Business Logic & Service Layer', 'Integration กับ Service อื่น', 'Unit & Integration Test'],
+    requirements: ['Backend ≥ 3 ปี', 'Node.js / Java', 'SQL & NoSQL', 'RESTful API Design'],
   },
   {
-    role: 'QA/Tester',
-    count: 1,
-    tasks: ['ทดสอบระบบ', 'UAT'],
-    color: '#fd79a8',
-    icon: '🧪',
+    id: 'be-mid-2', role: 'Backend Developer (Mid)', level: 'mid',
+    icon: '⚙️', color: '#e17055',
+    jd: ['พัฒนา REST API ทุกโมดูล', 'Business Logic & Service Layer', 'Integration กับ Service อื่น', 'Unit & Integration Test'],
+    requirements: ['Backend ≥ 3 ปี', 'Node.js / Java', 'SQL & NoSQL', 'RESTful API Design'],
   },
   {
-    role: 'DevOps/Infra',
-    count: 1,
-    tasks: ['Server', 'Deploy', 'Backup', 'Security'],
-    color: '#00cec9',
-    icon: '🛡️',
+    id: 'be-jr', role: 'Backend Developer (Jr)', level: 'jr',
+    icon: '⚙️', color: '#e17055',
+    jd: ['พัฒนา Feature ตาม Spec', 'เขียน Unit Test', 'Fix Bug', 'เรียนรู้ Codebase & Best Practices'],
+    requirements: ['Backend ≥ 1 ปี', 'Node.js / Java เบื้องต้น', 'SQL พื้นฐาน', 'Git, Agile Workflow'],
+  },
+
+  // Frontend team (4)
+  {
+    id: 'fe-lead', role: 'Frontend Lead', level: 'lead',
+    icon: '💻', color: '#0984e3',
+    jd: ['กำหนด Frontend Architecture', 'Component Library & Design Tokens', 'Performance Optimization', 'Mentor Mid & Junior Dev'],
+    requirements: ['Frontend ≥ 5 ปี', 'React, TypeScript', 'State Management, Web Perf', 'Accessibility (WCAG)'],
   },
   {
-    role: 'Support Staff',
-    count: 1,
-    tasks: ['ประสานงานผู้ใช้', 'สนับสนุนทีม', 'ช่วยทดสอบระบบ'],
-    color: '#a29bfe',
-    icon: '🤝',
+    id: 'fe-mid-1', role: 'Frontend Developer (Mid)', level: 'mid',
+    icon: '💻', color: '#0984e3',
+    jd: ['พัฒนาหน้าจอ React', 'สร้าง Reusable Component', 'เชื่อมต่อ Backend API', 'Responsive & Cross-browser'],
+    requirements: ['Frontend ≥ 3 ปี', 'React, TypeScript', 'CSS, Tailwind', 'REST API Integration'],
+  },
+  {
+    id: 'fe-mid-2', role: 'Frontend Developer (Mid)', level: 'mid',
+    icon: '💻', color: '#0984e3',
+    jd: ['พัฒนาหน้าจอ React', 'สร้าง Reusable Component', 'เชื่อมต่อ Backend API', 'Responsive & Cross-browser'],
+    requirements: ['Frontend ≥ 3 ปี', 'React, TypeScript', 'CSS, Tailwind', 'REST API Integration'],
+  },
+  {
+    id: 'fe-jr', role: 'Frontend Developer (Jr)', level: 'jr',
+    icon: '💻', color: '#0984e3',
+    jd: ['พัฒนา UI ตาม Mockup', 'Fix Bug หน้าจอ', 'เขียน Component ง่ายๆ', 'ทดสอบ Cross-browser'],
+    requirements: ['Frontend ≥ 1 ปี', 'React เบื้องต้น', 'HTML, CSS, JavaScript', 'Git, Agile'],
+  },
+
+  // QA team (2)
+  {
+    id: 'qa-lead', role: 'QA Lead', level: 'lead',
+    icon: '🧪', color: '#00b894',
+    jd: ['กำหนด Test Strategy & Plan', 'สร้าง Automation Framework', 'รายงาน Quality Status', 'ดูแล QA Tester'],
+    requirements: ['QA ≥ 4 ปี', 'Cypress / Selenium / Playwright', 'TestRail, Jira', 'ISTQB (preferred)'],
+  },
+  {
+    id: 'qa-tester', role: 'QA Tester', level: 'mid',
+    icon: '🧪', color: '#00b894',
+    jd: ['เขียน & Execute Test Case', 'Functional & Regression Test', 'รายงาน Bug ใน Jira', 'สนับสนุน UAT'],
+    requirements: ['QA ≥ 2 ปี', 'Manual Testing', 'Bug Tracking Tools', 'เข้าใจ Healthcare Workflow'],
+  },
+
+  // Support/Trainer team (2)
+  {
+    id: 'trainer', role: 'Implementation Trainer', level: 'mid',
+    icon: '🎓', color: '#a29bfe',
+    jd: ['ติดตั้ง & Configure ระบบที่ รพ.', 'ฝึกอบรมเจ้าหน้าที่ผู้ใช้งาน', 'สนับสนุน Go-live & Cut-over', 'จัดทำ User Manual'],
+    requirements: ['Implementation ≥ 2 ปี', 'เคยติดตั้ง HIS / ERP', 'ทักษะการสอน & สื่อสาร', 'Travel ต่างจังหวัดได้'],
+  },
+  {
+    id: 'support', role: 'Support / Helpdesk', level: 'jr',
+    icon: '🤝', color: '#a29bfe',
+    jd: ['รับ Ticket & แก้ปัญหาเบื้องต้น', 'ประสานงาน User ↔ Dev Team', 'จัดทำ FAQ & Knowledge Base', 'ติดตาม SLA'],
+    requirements: ['Support ≥ 1 ปี', 'สื่อสารดี ใจเย็น', 'IT พื้นฐาน', 'Healthcare (preferred)'],
   },
 ]
 
-const consultants = [
-  {
-    role: 'ที่ปรึกษาระบบ HIS / สาธารณสุข',
-    cost: '50-100K ตลอดโปรเจค',
-    reason: 'เข้าใจ workflow รพ., มาตรฐาน 43 แฟ้ม, e-Claim',
-    icon: '🏥',
-    color: '#e17055',
-  },
-  {
-    role: 'ที่ปรึกษา Security / PDPA',
-    cost: '30-50K',
-    reason: 'ข้อมูลผู้ป่วยเป็น sensitive data สูงสุด',
-    icon: '🔒',
-    color: '#d63031',
-  },
-  {
-    role: 'UX/UI Designer',
-    cost: '80-150K ตลอดโปรเจค',
-    reason: 'ออกแบบหน้าจอให้ใช้งานง่าย',
-    icon: '🎨',
-    color: '#6c5ce7',
-  },
+// Columns for the org chart (exclude PM — PM sits above all)
+const COLUMNS = [
+  { label: 'Solution Analyst', color: '#f39c12', ids: ['sa-senior', 'sa', 'integration', 'devops'] },
+  { label: 'Business Analyst', color: '#6c5ce7', ids: ['ba-lead', 'ba'] },
+  { label: 'UX / UI', color: '#fd79a8', ids: ['ux-lead', 'ui'] },
+  { label: 'Backend Dev', color: '#e17055', ids: ['be-lead', 'be-mid-1', 'be-mid-2', 'be-jr'] },
+  { label: 'Frontend Dev', color: '#0984e3', ids: ['fe-lead', 'fe-mid-1', 'fe-mid-2', 'fe-jr'] },
+  { label: 'QA / Test', color: '#00b894', ids: ['qa-lead', 'qa-tester'] },
+  { label: 'Support & Trainer', color: '#a29bfe', ids: ['trainer', 'support'] },
 ]
+
+const getPerson = (id) => PEOPLE.find(p => p.id === id)
+
+// ── Hover Tooltip ─────────────────────────────────────────────────────────────
+
+function JDTooltip({ person, anchorRect }) {
+  if (!person || !anchorRect) return null
+
+  const tooltipWidth = 300
+  const margin = 10
+  // วางขวาก่อน ถ้าไม่พอเปลี่ยนซ้าย
+  const placeRight = anchorRect.right + tooltipWidth + margin < window.innerWidth
+  const left = placeRight ? anchorRect.right + margin : anchorRect.left - tooltipWidth - margin
+  const top = Math.min(anchorRect.top, window.innerHeight - 360)
+
+  return (
+    <div style={{
+      position: 'fixed',
+      top, left,
+      width: tooltipWidth,
+      background: 'rgba(8,8,24,0.97)',
+      border: `1px solid ${person.color}55`,
+      borderRadius: 16,
+      padding: '18px 20px',
+      zIndex: 9999,
+      boxShadow: `0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px ${person.color}18`,
+      pointerEvents: 'none',
+    }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+        <div style={{
+          width: 38, height: 38, borderRadius: 10, flexShrink: 0,
+          background: `${person.color}22`, border: `1px solid ${person.color}44`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20,
+        }}>
+          {person.icon}
+        </div>
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#fff', fontFamily: "'Kanit', sans-serif", lineHeight: 1.3 }}>
+            {person.role}
+          </div>
+          <span style={{
+            fontSize: 9, fontWeight: 800,
+            background: `${person.color}30`, color: person.color,
+            padding: '1px 8px', borderRadius: 20,
+            border: `1px solid ${person.color}55`,
+            letterSpacing: 0.5,
+          }}>
+            {person.level === 'lead' ? 'Lead / Senior' : person.level === 'mid' ? 'Mid Level' : 'Junior'}
+          </span>
+        </div>
+      </div>
+
+      {/* JD */}
+      <div style={{ marginBottom: 12 }}>
+        <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: 1.5, color: person.color, fontFamily: "'JetBrains Mono', monospace", marginBottom: 7 }}>
+          JOB DESCRIPTION
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+          {person.jd.map((item, i) => (
+            <div key={i} style={{ display: 'flex', gap: 7, alignItems: 'flex-start' }}>
+              <span style={{ color: person.color, fontSize: 10, marginTop: 3, flexShrink: 0 }}>▸</span>
+              <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.88)', fontFamily: "'Kanit', sans-serif", lineHeight: 1.5 }}>
+                {item}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ height: 1, background: 'rgba(255,255,255,0.07)', marginBottom: 12 }} />
+
+      {/* Requirements */}
+      <div>
+        <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: 1.5, color: 'rgba(255,255,255,0.35)', fontFamily: "'JetBrains Mono', monospace", marginBottom: 7 }}>
+          REQUIREMENTS
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {person.requirements.map((item, i) => (
+            <div key={i} style={{ display: 'flex', gap: 7, alignItems: 'flex-start' }}>
+              <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: 10, marginTop: 2, flexShrink: 0 }}>◦</span>
+              <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.65)', fontFamily: "'Kanit', sans-serif", lineHeight: 1.5 }}>
+                {item}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── Person Node (compact card in org chart) ───────────────────────────────────
+
+function PersonNode({ id, onHover, onLeave }) {
+  const person = getPerson(id)
+  const ref = useRef(null)
+  if (!person) return null
+
+  const isLead = person.level === 'lead'
+  const isJr = person.level === 'jr'
+
+  return (
+    <div
+      ref={ref}
+      onMouseEnter={() => onHover(person, ref.current.getBoundingClientRect())}
+      onMouseLeave={onLeave}
+      style={{
+        background: isLead ? `${person.color}22` : isJr ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.12)',
+        border: isLead ? `1px solid ${person.color}66` : '1px solid rgba(255,255,255,0.2)',
+        borderLeft: `3px solid ${isLead ? person.color : 'rgba(100,120,160,0.5)'}`,
+        borderRadius: 9,
+        padding: '7px 9px',
+        cursor: 'default',
+        transition: 'all 0.18s ease',
+        display: 'flex', alignItems: 'center', gap: 7,
+      }}
+    >
+      <span style={{ fontSize: 14, flexShrink: 0, lineHeight: 1 }}>{person.icon}</span>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{
+          fontSize: 10, fontWeight: isLead ? 800 : 600,
+          color: '#fff',
+          fontFamily: "'Kanit', sans-serif", lineHeight: 1.3,
+          whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+        }}>
+          {person.role}
+        </div>
+      </div>
+      {isLead && (
+        <span style={{
+          fontSize: 7, fontWeight: 900, color: person.color,
+          background: `${person.color}25`, border: `1px solid ${person.color}55`,
+          padding: '1px 5px', borderRadius: 4, flexShrink: 0, letterSpacing: 0.3,
+        }}>
+          LEAD
+        </span>
+      )}
+    </div>
+  )
+}
+
+// ── PM Node (special, large, centered) ───────────────────────────────────────
+
+function PMNode({ onHover, onLeave }) {
+  const pm = getPerson('pm')
+  const ref = useRef(null)
+  return (
+    <div
+      ref={ref}
+      onMouseEnter={() => onHover(pm, ref.current.getBoundingClientRect())}
+      onMouseLeave={onLeave}
+      style={{
+        background: `${pm.color}20`,
+        border: `2px solid ${pm.color}66`,
+        borderRadius: 14,
+        padding: '12px 28px',
+        cursor: 'default',
+        textAlign: 'center',
+        transition: 'all 0.2s ease',
+        display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 4,
+      }}
+    >
+      <span style={{ fontSize: 28 }}>{pm.icon}</span>
+      <div style={{ fontSize: 13, fontWeight: 800, color: '#fff', fontFamily: "'Kanit', sans-serif" }}>
+        {pm.role}
+      </div>
+      <span style={{
+        fontSize: 9, fontWeight: 900, color: pm.color,
+        background: `${pm.color}25`, border: `1px solid ${pm.color}55`,
+        padding: '2px 8px', borderRadius: 6, letterSpacing: 0.5,
+      }}>
+        1 คน
+      </span>
+    </div>
+  )
+}
+
+// ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function PageTeam() {
-  const [selectedMember, setSelectedMember] = useState(null)
+  const [tooltip, setTooltip] = useState(null) // { person, rect }
+
+  const handleHover = (person, rect) => setTooltip({ person, rect })
+  const handleLeave = () => setTooltip(null)
 
   return (
     <PageWrapper>
       <PageHeader
         title="Team Structure"
-        subtitle="โครงสร้างทีมพัฒนาระบบ HIS — รวม 9-10 คน + ที่ปรึกษาเฉพาะทาง"
+        subtitle="โครงสร้างทีมพัฒนาระบบ HIS ทั้งหมด 21 ตำแหน่ง — ชี้เมาส์ที่ตำแหน่งเพื่อดู JD & Requirements"
         emoji="👥"
-        badge={{ title: '9-10 คน', sub: 'Core Team + 3 Consultants' }}
+        badge={{ title: '21 คน', sub: '10 Functions' }}
       />
 
-      {/* Org Chart */}
-      <GlassCard style={{ padding: 24, marginBottom: 24 }}>
-        <SectionTitle>ORGANIZATION CHART</SectionTitle>
-        <div style={{ position: 'relative', paddingTop: 10 }}>
-          {/* PM at top */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
-            <OrgNode
-              member={coreTeam[0]}
-              isSelected={selectedMember === 0}
-              onClick={() => setSelectedMember(selectedMember === 0 ? null : 0)}
-              isPM
-            />
-          </div>
+      <JDTooltip person={tooltip?.person} anchorRect={tooltip?.rect} />
 
-          {/* Connector line from PM */}
-          <div style={{
-            width: 2,
-            height: 24,
-            background: 'rgba(255,255,255,0.15)',
-            margin: '-12px auto 0',
-            position: 'relative',
-            zIndex: 0,
-          }} />
+      <GlassCard style={{ padding: '24px 20px' }}>
+        <SectionTitle>ORGANIZATION CHART — 21 Positions</SectionTitle>
 
-          {/* Horizontal connector */}
-          <div style={{
-            height: 2,
-            background: 'rgba(255,255,255,0.15)',
-            margin: '0 40px 0',
-            position: 'relative',
-          }} />
-
-          {/* Row 2: SA + BA + Senior Backend + Frontend Lead + DevOps */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(5, 1fr)',
-            gap: 10,
-            marginBottom: 16,
-          }}>
-            {[5, 6, 1, 3, 8].map((idx) => (
-              <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div style={{ width: 2, height: 16, background: 'rgba(255,255,255,0.15)' }} />
-                <OrgNode
-                  member={coreTeam[idx]}
-                  isSelected={selectedMember === idx}
-                  onClick={() => setSelectedMember(selectedMember === idx ? null : idx)}
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Row 3: under each lead */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(5, 1fr)',
-            gap: 10,
-          }}>
-            {/* Under SA: QA/Tester */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{ width: 2, height: 12, background: 'rgba(255,255,255,0.1)' }} />
-              <OrgNode
-                member={coreTeam[7]}
-                isSelected={selectedMember === 7}
-                onClick={() => setSelectedMember(selectedMember === 7 ? null : 7)}
-                small
-              />
-            </div>
-            {/* Under BA: Support Staff */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{ width: 2, height: 12, background: 'rgba(255,255,255,0.1)' }} />
-              <OrgNode
-                member={coreTeam[9]}
-                isSelected={selectedMember === 9}
-                onClick={() => setSelectedMember(selectedMember === 9 ? null : 9)}
-                small
-              />
-            </div>
-            {/* Under Senior BE: Mid BE */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{ width: 2, height: 12, background: 'rgba(255,255,255,0.1)' }} />
-              <OrgNode
-                member={coreTeam[2]}
-                isSelected={selectedMember === 2}
-                onClick={() => setSelectedMember(selectedMember === 2 ? null : 2)}
-                small
-              />
-            </div>
-            {/* Under Frontend Lead: Junior FE */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{ width: 2, height: 12, background: 'rgba(255,255,255,0.1)' }} />
-              <OrgNode
-                member={coreTeam[4]}
-                isSelected={selectedMember === 4}
-                onClick={() => setSelectedMember(selectedMember === 4 ? null : 4)}
-                small
-              />
-            </div>
-            {/* Under DevOps: empty */}
-            <div />
-          </div>
+        {/* ── PM ── */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 0 }}>
+          <PMNode onHover={handleHover} onLeave={handleLeave} />
         </div>
-      </GlassCard>
 
-      {/* Core Team Grid */}
-      <GlassCard style={{ padding: 24, marginBottom: 24 }} delay={0.1}>
-        <SectionTitle>CORE TEAM</SectionTitle>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 12 }}>
-          {coreTeam.map((m, i) => (
-            <div
-              key={i}
-              onClick={() => setSelectedMember(selectedMember === i ? null : i)}
-              style={{
-                background: selectedMember === i
-                  ? `rgba(255,255,255,0.12)`
-                  : 'rgba(255,255,255,0.06)',
-                backdropFilter: 'blur(20px)',
-                border: selectedMember === i
-                  ? `1px solid ${m.color}44`
-                  : '1px solid rgba(255,255,255,0.08)',
-                borderRadius: 14,
-                padding: '14px 16px',
-                cursor: 'pointer',
-                transition: 'all 0.25s ease',
-                boxShadow: selectedMember === i
-                  ? `0 4px 20px rgba(0,0,0,0.06)`
-                  : '0 2px 8px rgba(0,0,0,0.03)',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                <span style={{ fontSize: 24 }}>{m.icon}</span>
-                <div style={{ flex: 1 }}>
-                  <div style={{
-                    fontSize: 13,
-                    fontWeight: 700,
-                    color: '#fff',
-                    fontFamily: "'Kanit', sans-serif",
-                  }}>{m.role}</div>
-                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)' }}>
-                    {m.count} คน
-                  </div>
+        {/* PM → horizontal bar */}
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div style={{ width: 2, height: 18, background: 'rgba(255,255,255,0.15)' }} />
+        </div>
+        <div style={{ height: 2, background: 'rgba(255,255,255,0.12)', borderRadius: 1, margin: '0 3%' }} />
+
+        {/* ── 7 Team Columns ── */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(7, 1fr)',
+          gap: 10,
+          alignItems: 'start',
+          overflowX: 'auto',
+          minWidth: 760,
+          paddingBottom: 4,
+        }}>
+          {COLUMNS.map(col => {
+            const members = col.ids.map(id => getPerson(id)).filter(Boolean)
+            return (
+              <div key={col.label}>
+                {/* Vertical drop from horizontal bar */}
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div style={{ width: 2, height: 14, background: 'rgba(255,255,255,0.12)' }} />
+                </div>
+
+                {/* Column header */}
+                <div style={{
+                  fontSize: 9, fontWeight: 800, letterSpacing: 0.8,
+                  color: '#fff',
+                  fontFamily: "'JetBrains Mono', monospace",
+                  textAlign: 'center',
+                  padding: '5px 4px',
+                  background: `${col.color}14`,
+                  border: `1px solid ${col.color}33`,
+                  borderRadius: 7,
+                  marginBottom: 6,
+                }}>
+                  {col.label}
+                  <span style={{
+                    display: 'inline-block', marginLeft: 4,
+                    background: `${col.color}30`, color: col.color,
+                    padding: '0 5px', borderRadius: 4, fontSize: 8,
+                  }}>
+                    {members.length}
+                  </span>
+                </div>
+
+                {/* Member nodes */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+                  {members.map((person, idx) => {
+                    // Add visual separator in SA column between SA members and sub-team
+                    const showDivider = col.ids[0] === 'sa-senior' && idx === 2
+                    return (
+                      <div key={person.id}>
+                        {showDivider && (
+                          <div style={{
+                            height: 1,
+                            background: `${col.color}30`,
+                            margin: '4px 2px',
+                            borderRadius: 1,
+                            position: 'relative',
+                          }}>
+                            <span style={{
+                              position: 'absolute', left: '50%', top: '50%',
+                              transform: 'translate(-50%, -50%)',
+                              background: 'rgba(20,20,50,0.8)',
+                              fontSize: 7, color: 'rgba(255,255,255,0.3)',
+                              padding: '0 4px',
+                              fontFamily: "'JetBrains Mono', monospace",
+                              whiteSpace: 'nowrap',
+                            }}>sub-team</span>
+                          </div>
+                        )}
+                        <PersonNode id={person.id} onHover={handleHover} onLeave={handleLeave} />
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
-                {m.tasks.map((t, j) => (
-                  <span key={j} style={{
-                    fontSize: 10,
-                    padding: '3px 8px',
-                    borderRadius: 6,
-                    background: 'rgba(255,255,255,0.08)',
-                    color: 'rgba(255,255,255,0.7)',
-                    fontWeight: 600,
-                    border: '1px solid rgba(255,255,255,0.1)',
-                  }}>{t}</span>
-                ))}
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
-      </GlassCard>
 
-      {/* Consultants */}
-      <GlassCard style={{ padding: 24 }} delay={0.2}>
-        <SectionTitle>CONSULTANTS / PART-TIME</SectionTitle>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 12 }}>
-          {consultants.map((c, i) => (
-            <div key={i} style={{
-              background: 'rgba(255,255,255,0.06)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: 14,
-              padding: '16px',
-              borderLeft: `3px solid ${c.color}`,
-              boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                <span style={{ fontSize: 22 }}>{c.icon}</span>
-                <div style={{
-                  fontSize: 13,
-                  fontWeight: 700,
-                  color: '#fff',
-                  fontFamily: "'Kanit', sans-serif",
-                }}>{c.role}</div>
-              </div>
+        {/* Legend */}
+        <div style={{
+          marginTop: 18, paddingTop: 14,
+          borderTop: '1px solid rgba(255,255,255,0.07)',
+          display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap',
+        }}>
+          {[
+            { label: 'Lead / Senior', borderColor: 'rgba(255,255,255,0.7)', bg: 'rgba(255,255,255,0.15)', left: '#fff' },
+            { label: 'Mid Level', borderColor: 'rgba(255,255,255,0.2)', bg: 'rgba(255,255,255,0.07)', left: 'rgba(255,255,255,0.3)' },
+            { label: 'Junior', borderColor: 'rgba(255,255,255,0.1)', bg: 'rgba(255,255,255,0.04)', left: 'rgba(255,255,255,0.18)' },
+          ].map(l => (
+            <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
               <div style={{
-                fontSize: 12,
-                color: c.color,
-                fontWeight: 700,
-                fontFamily: "'JetBrains Mono', monospace",
-                marginBottom: 6,
-              }}>{c.cost}</div>
-              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', lineHeight: 1.5 }}>
-                {c.reason}
-              </div>
+                width: 20, height: 12,
+                background: l.bg,
+                border: `1px solid ${l.borderColor}`,
+                borderLeft: `3px solid ${l.left}`,
+                borderRadius: 3,
+              }} />
+              <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', fontFamily: "'JetBrains Mono', monospace" }}>
+                {l.label}
+              </span>
             </div>
           ))}
+          <span style={{ marginLeft: 'auto', fontSize: 10, color: 'rgba(255,255,255,0.25)', fontFamily: "'JetBrains Mono', monospace" }}>
+            🖱 ชี้เมาส์ดู JD & Requirements
+          </span>
         </div>
       </GlassCard>
     </PageWrapper>
-  )
-}
-
-function OrgNode({ member, isSelected, onClick, isPM, small }) {
-  return (
-    <div
-      onClick={onClick}
-      style={{
-        background: isSelected
-          ? 'rgba(255,255,255,0.12)'
-          : 'rgba(255,255,255,0.06)',
-        backdropFilter: 'blur(20px)',
-        border: isSelected
-          ? `2px solid ${member.color}44`
-          : '1px solid rgba(255,255,255,0.1)',
-        borderRadius: isPM ? 16 : 12,
-        padding: isPM ? '14px 28px' : small ? '8px 14px' : '10px 20px',
-        cursor: 'pointer',
-        textAlign: 'center',
-        transition: 'all 0.3s ease',
-        minWidth: isPM ? 200 : small ? 140 : 160,
-        position: 'relative',
-        zIndex: 2,
-        boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
-      }}
-    >
-      <span style={{ fontSize: isPM ? 28 : small ? 18 : 22 }}>{member.icon}</span>
-      <div style={{
-        fontSize: isPM ? 13 : small ? 10 : 11,
-        fontWeight: 700,
-        color: '#fff',
-        fontFamily: "'Kanit', sans-serif",
-        marginTop: 4,
-      }}>{member.role}</div>
-    </div>
   )
 }
