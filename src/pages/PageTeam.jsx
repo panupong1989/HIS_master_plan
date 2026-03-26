@@ -149,13 +149,17 @@ const PEOPLE = [
 
 // Columns for the org chart (exclude PM — PM sits above all)
 const COLUMNS = [
-  { label: 'Solution Analyst', color: '#f39c12', ids: ['sa-senior', 'sa', 'integration', 'devops'] },
-  { label: 'Business Analyst', color: '#6c5ce7', ids: ['ba-lead', 'ba'] },
+  {
+    label: 'Solution Analyst', color: '#f39c12', ids: ['sa-senior', 'sa', 'integration', 'devops'],
+    sub: { label: 'QA / Test', color: '#00b894', ids: ['qa-lead', 'qa-tester'] },
+  },
+  {
+    label: 'Business Analyst', color: '#6c5ce7', ids: ['ba-lead', 'ba'],
+    sub: { label: 'Support & Trainer', color: '#a29bfe', ids: ['trainer', 'support'] },
+  },
   { label: 'UX / UI', color: '#fd79a8', ids: ['ux-lead', 'ui'] },
   { label: 'Backend Dev', color: '#e17055', ids: ['be-lead', 'be-mid-1', 'be-mid-2', 'be-jr'] },
   { label: 'Frontend Dev', color: '#0984e3', ids: ['fe-lead', 'fe-mid-1', 'fe-mid-2', 'fe-jr'] },
-  { label: 'QA / Test', color: '#00b894', ids: ['qa-lead', 'qa-tester'] },
-  { label: 'Support & Trainer', color: '#a29bfe', ids: ['trainer', 'support'] },
 ]
 
 const getPerson = (id) => PEOPLE.find(p => p.id === id)
@@ -368,10 +372,10 @@ export default function PageTeam() {
         </div>
         <div style={{ height: 2, background: 'rgba(255,255,255,0.12)', borderRadius: 1, margin: '0 3%' }} />
 
-        {/* ── 7 Team Columns ── */}
+        {/* ── 5 Team Columns ── */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(7, 1fr)',
+          gridTemplateColumns: 'repeat(5, 1fr)',
           gap: 10,
           alignItems: 'start',
           overflowX: 'auto',
@@ -411,35 +415,50 @@ export default function PageTeam() {
 
                 {/* Member nodes */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-                  {members.map((person, idx) => {
-                    // Add visual separator in SA column between SA members and sub-team
-                    const showDivider = col.ids[0] === 'sa-senior' && idx === 2
-                    return (
-                      <div key={person.id}>
-                        {showDivider && (
-                          <div style={{
-                            height: 1,
-                            background: `${col.color}30`,
-                            margin: '4px 2px',
-                            borderRadius: 1,
-                            position: 'relative',
-                          }}>
-                            <span style={{
-                              position: 'absolute', left: '50%', top: '50%',
-                              transform: 'translate(-50%, -50%)',
-                              background: 'rgba(20,20,50,0.8)',
-                              fontSize: 7, color: 'rgba(255,255,255,0.3)',
-                              padding: '0 4px',
-                              fontFamily: "'JetBrains Mono', monospace",
-                              whiteSpace: 'nowrap',
-                            }}>sub-team</span>
-                          </div>
-                        )}
-                        <PersonNode id={person.id} onHover={handleHover} onLeave={handleLeave} />
-                      </div>
-                    )
-                  })}
+                  {members.map((person) => (
+                    <PersonNode key={person.id} id={person.id} onHover={handleHover} onLeave={handleLeave} />
+                  ))}
                 </div>
+
+                {/* Sub-team (QA under SA / Support under BA) */}
+                {col.sub && (() => {
+                  const subMembers = col.sub.ids.map(id => getPerson(id)).filter(Boolean)
+                  return (
+                    <div style={{ marginTop: 10 }}>
+                      {/* Connector line */}
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <div style={{ width: 2, height: 10, background: `${col.sub.color}66` }} />
+                      </div>
+                      {/* Sub header */}
+                      <div style={{
+                        fontSize: 9, fontWeight: 800, letterSpacing: 0.8,
+                        color: '#fff',
+                        fontFamily: "'JetBrains Mono', monospace",
+                        textAlign: 'center',
+                        padding: '4px 4px',
+                        background: `${col.sub.color}14`,
+                        border: `1px solid ${col.sub.color}33`,
+                        borderRadius: 7,
+                        marginBottom: 5,
+                      }}>
+                        {col.sub.label}
+                        <span style={{
+                          display: 'inline-block', marginLeft: 4,
+                          background: `${col.sub.color}30`, color: col.sub.color,
+                          padding: '0 5px', borderRadius: 4, fontSize: 8,
+                        }}>
+                          {subMembers.length}
+                        </span>
+                      </div>
+                      {/* Sub member nodes */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+                        {subMembers.map((person) => (
+                          <PersonNode key={person.id} id={person.id} onHover={handleHover} onLeave={handleLeave} />
+                        ))}
+                      </div>
+                    </div>
+                  )
+                })()}
               </div>
             )
           })}
