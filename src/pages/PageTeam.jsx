@@ -7,7 +7,7 @@ const PEOPLE = [
   // Project Owner
   {
     id: 'po', role: 'Project Owner', level: 'lead',
-    icon: '👑', color: '#fdcb6e',
+    icon: '👑', color: '#fdcb6e', salary: 130000,
     jd: ['กำหนด Vision และ Business Goal ของระบบ HIS', 'อนุมัติ Requirement และ Scope', 'ตัดสินใจลำดับความสำคัญของ Feature', 'รับผิดชอบผลลัพธ์ทางธุรกิจ'],
     requirements: ['ผู้บริหาร รพ. / ผู้อำนวยการ / CIO', 'เข้าใจ Workflow โรงพยาบาล', 'มีอำนาจอนุมัติงบประมาณ', 'ประสานงาน Stakeholders ระดับสูง'],
   },
@@ -15,33 +15,33 @@ const PEOPLE = [
   // PM
   {
     id: 'pm', role: 'Project Manager', level: 'lead',
-    icon: '👨‍💼', color: '#667eea',
+    icon: '👨‍💼', color: '#667eea', salary: 100000,
     jd: ['บริหารโปรเจค Timeline & Milestones', 'ประสานงาน Stakeholders ทุกฝ่าย', 'ควบคุม Risk, Budget, Quality', 'รายงานความคืบหน้าต่อผู้บริหาร'],
     requirements: ['ประสบการณ์ PM ≥ 5 ปี', 'PMP / PRINCE2 (preferred)', 'เคยบริหารโปรเจค Healthcare / ERP', 'ทักษะสื่อสาร & Negotiation'],
   },
 
-  // Solution Analyst team (4)
+  // System Analyst team (4)
   {
-    id: 'sa-senior', role: 'Solution Analyst (Senior)', level: 'lead',
-    icon: '🏗️', color: '#f39c12',
+    id: 'sa-senior', role: 'System Analyst (Senior)', level: 'lead',
+    icon: '🏗️', color: '#f39c12', salary: 60000,
     jd: ['ออกแบบ System Architecture HIS', 'กำหนด Tech Stack & Integration Pattern', 'Review Technical Design ทั้งหมด', 'ดูแล SA Team & Technical Direction'],
     requirements: ['SA / Architect ≥ 7 ปี', 'HL7/FHIR, 43 แฟ้ม', 'Microservices, Cloud', 'เคยออกแบบ Healthcare System'],
   },
   {
-    id: 'sa', role: 'Solution Analyst', level: 'mid',
-    icon: '🏗️', color: '#f39c12',
+    id: 'sa', role: 'System Analyst', level: 'mid',
+    icon: '🏗️', color: '#f39c12', salary: 30000,
     jd: ['วิเคราะห์ระบบ เขียน System Spec', 'สร้าง Data Flow & Sequence Diagram', 'ประสานงาน Dev Team & BA', 'จัดทำ Technical Documentation'],
     requirements: ['SA ≥ 3 ปี', 'UML, ERD, DFD', 'เข้าใจ Healthcare Workflow', 'วิเคราะห์ระบบ Legacy'],
   },
   {
     id: 'integration', role: 'Integration Engineer', level: 'mid',
-    icon: '🔌', color: '#e17055',
+    icon: '🔌', color: '#e17055', salary: 35000,
     jd: ['เชื่อมต่อระบบ สปสช. / กสธ.', 'พัฒนา HL7/FHIR Interface', 'ส่ง 43 แฟ้ม & e-Claim', 'Monitor & Maintain Integration'],
     requirements: ['Integration ≥ 4 ปี', 'HL7/FHIR, 43 แฟ้ม, e-Claim', 'REST API, Message Queue, ESB', 'มาตรฐานสาธารณสุขไทย'],
   },
   {
     id: 'devops', role: 'DevOps / Infra', level: 'mid',
-    icon: '🛡️', color: '#00cec9',
+    icon: '🛡️', color: '#00cec9', salary: 50000,
     jd: ['จัดการ Server & Cloud Infrastructure', 'ตั้งค่า CI/CD Pipeline', 'Monitoring, Alerting, Logging', 'Security, Backup & DR'],
     requirements: ['DevOps ≥ 3 ปี', 'Docker, Kubernetes, Linux', 'AWS / Azure / On-premise', 'PDPA / Healthcare Security'],
   },
@@ -49,53 +49,59 @@ const PEOPLE = [
   // Business Analyst team (2)
   {
     id: 'ba-lead', role: 'BA Lead', level: 'lead',
-    icon: '📋', color: '#6c5ce7',
+    icon: '📋', color: '#6c5ce7', salary: 60000,
     jd: ['นำทีม BA & กำหนด Requirement Process', 'รวบรวม High-level Requirement', 'ประสานงาน PM, SA, และ รพ.', 'Review User Story & Acceptance Criteria'],
     requirements: ['BA ≥ 5 ปี', 'เข้าใจ Workflow โรงพยาบาล', 'Jira, Confluence, Visio', 'Facilitation & Workshop'],
   },
   {
     id: 'ba', role: 'Business Analyst', level: 'mid',
-    icon: '📋', color: '#6c5ce7',
+    icon: '📋', color: '#6c5ce7', salary: 30000,
     jd: ['เขียน User Story & Use Case', 'จัดทำ Process Flow Diagram', 'ประสานงาน User ↔ Dev Team', 'สนับสนุน UAT & Go-live'],
     requirements: ['BA ≥ 3 ปี', 'เข้าใจ Workflow รพ.', 'Excel, Confluence', 'สื่อสารดี ใจเย็น'],
   },
 
-  // UX/UI team (2)
+  // UX/UI team (3)
   {
     id: 'ux-lead', role: 'UX Lead', level: 'lead',
-    icon: '🎨', color: '#fd79a8',
+    icon: '🎨', color: '#fd79a8', salary: 50000,
     jd: ['กำหนด UX Strategy & Research Plan', 'User Research & Usability Testing', 'สร้าง Design System', 'ดูแล UI Designer & Quality'],
     requirements: ['UX ≥ 4 ปี', 'Figma, User Testing Tools', 'Medical UX Experience', 'Design Thinking'],
   },
   {
     id: 'ui', role: 'UI Designer', level: 'mid',
-    icon: '✏️', color: '#fd79a8',
+    icon: '✏️', color: '#fd79a8', salary: 35000,
     jd: ['ออกแบบหน้าจอ HIS ทุกโมดูล', 'สร้าง Wireframe & Mockup', 'สร้าง Component Library', 'ประสานงานกับ Frontend Dev'],
     requirements: ['UI/UX ≥ 2 ปี', 'Figma, Adobe XD', 'Responsive Design', 'เข้าใจ Healthcare UI Patterns'],
+  },
+  {
+    id: 'ui-2', role: 'UX/UI Designer', level: 'mid',
+    icon: '🖌️', color: '#fd79a8', salary: 35000,
+    jd: ['ออกแบบ User Flow & Interaction Design', 'สร้าง Prototype สำหรับ Usability Test', 'ดูแล Accessibility & Inclusive Design', 'ประสานงานกับ BA & Frontend Dev'],
+    requirements: ['UI/UX ≥ 2 ปี', 'Figma, Prototyping Tools', 'User Research พื้นฐาน', 'เข้าใจ Healthcare UX'],
   },
 
   // Backend team (4)
   {
     id: 'be-lead', role: 'Backend Lead', level: 'lead',
-    icon: '⚙️', color: '#e17055',
+    icon: '⚙️', color: '#e17055', salary: 60000,
     jd: ['ออกแบบ Backend Architecture', 'Code Review & Coding Standards', 'Mentor Mid & Junior Dev', 'Database Design & Performance'],
     requirements: ['Backend ≥ 5 ปี', 'Node.js / Java / Python', 'PostgreSQL, Redis, Docker', 'Clean Architecture / DDD'],
   },
   {
     id: 'be-mid-1', role: 'Backend Developer (Mid)', level: 'mid',
-    icon: '⚙️', color: '#e17055',
+    icon: '⚙️', color: '#e17055', salary: 50000,
     jd: ['พัฒนา REST API ทุกโมดูล', 'Business Logic & Service Layer', 'Integration กับ Service อื่น', 'Unit & Integration Test'],
     requirements: ['Backend ≥ 3 ปี', 'Node.js / Java', 'SQL & NoSQL', 'RESTful API Design'],
   },
   {
     id: 'be-mid-2', role: 'Backend Developer (Mid)', level: 'mid',
-    icon: '⚙️', color: '#e17055',
+    icon: '⚙️', color: '#e17055', salary: 50000,
     jd: ['พัฒนา REST API ทุกโมดูล', 'Business Logic & Service Layer', 'Integration กับ Service อื่น', 'Unit & Integration Test'],
     requirements: ['Backend ≥ 3 ปี', 'Node.js / Java', 'SQL & NoSQL', 'RESTful API Design'],
   },
   {
     id: 'be-jr', role: 'Backend Developer (Jr)', level: 'jr',
-    icon: '⚙️', color: '#e17055',
+    icon: '⚙️', color: '#e17055', salary: 30000,
     jd: ['พัฒนา Feature ตาม Spec', 'เขียน Unit Test', 'Fix Bug', 'เรียนรู้ Codebase & Best Practices'],
     requirements: ['Backend ≥ 1 ปี', 'Node.js / Java เบื้องต้น', 'SQL พื้นฐาน', 'Git, Agile Workflow'],
   },
@@ -103,25 +109,25 @@ const PEOPLE = [
   // Frontend team (4)
   {
     id: 'fe-lead', role: 'Frontend Lead', level: 'lead',
-    icon: '💻', color: '#0984e3',
+    icon: '💻', color: '#0984e3', salary: 60000,
     jd: ['กำหนด Frontend Architecture', 'Component Library & Design Tokens', 'Performance Optimization', 'Mentor Mid & Junior Dev'],
     requirements: ['Frontend ≥ 5 ปี', 'React, TypeScript', 'State Management, Web Perf', 'Accessibility (WCAG)'],
   },
   {
     id: 'fe-mid-1', role: 'Frontend Developer (Mid)', level: 'mid',
-    icon: '💻', color: '#0984e3',
+    icon: '💻', color: '#0984e3', salary: 50000,
     jd: ['พัฒนาหน้าจอ React', 'สร้าง Reusable Component', 'เชื่อมต่อ Backend API', 'Responsive & Cross-browser'],
     requirements: ['Frontend ≥ 3 ปี', 'React, TypeScript', 'CSS, Tailwind', 'REST API Integration'],
   },
   {
     id: 'fe-mid-2', role: 'Frontend Developer (Mid)', level: 'mid',
-    icon: '💻', color: '#0984e3',
+    icon: '💻', color: '#0984e3', salary: 50000,
     jd: ['พัฒนาหน้าจอ React', 'สร้าง Reusable Component', 'เชื่อมต่อ Backend API', 'Responsive & Cross-browser'],
     requirements: ['Frontend ≥ 3 ปี', 'React, TypeScript', 'CSS, Tailwind', 'REST API Integration'],
   },
   {
     id: 'fe-jr', role: 'Frontend Developer (Jr)', level: 'jr',
-    icon: '💻', color: '#0984e3',
+    icon: '💻', color: '#0984e3', salary: 30000,
     jd: ['พัฒนา UI ตาม Mockup', 'Fix Bug หน้าจอ', 'เขียน Component ง่ายๆ', 'ทดสอบ Cross-browser'],
     requirements: ['Frontend ≥ 1 ปี', 'React เบื้องต้น', 'HTML, CSS, JavaScript', 'Git, Agile'],
   },
@@ -129,13 +135,13 @@ const PEOPLE = [
   // QA team (2)
   {
     id: 'qa-lead', role: 'QA Lead', level: 'lead',
-    icon: '🧪', color: '#00b894',
+    icon: '🧪', color: '#00b894', salary: 50000,
     jd: ['กำหนด Test Strategy & Plan', 'สร้าง Automation Framework', 'รายงาน Quality Status', 'ดูแล QA Tester'],
     requirements: ['QA ≥ 4 ปี', 'Cypress / Selenium / Playwright', 'TestRail, Jira', 'ISTQB (preferred)'],
   },
   {
     id: 'qa-tester', role: 'QA Tester', level: 'mid',
-    icon: '🧪', color: '#00b894',
+    icon: '🧪', color: '#00b894', salary: 25000,
     jd: ['เขียน & Execute Test Case', 'Functional & Regression Test', 'รายงาน Bug ใน Jira', 'สนับสนุน UAT'],
     requirements: ['QA ≥ 2 ปี', 'Manual Testing', 'Bug Tracking Tools', 'เข้าใจ Healthcare Workflow'],
   },
@@ -143,13 +149,13 @@ const PEOPLE = [
   // Support/Trainer team (2)
   {
     id: 'trainer', role: 'Implementation Trainer', level: 'mid',
-    icon: '🎓', color: '#a29bfe',
+    icon: '🎓', color: '#a29bfe', salary: 25000,
     jd: ['ติดตั้ง & Configure ระบบที่ รพ.', 'ฝึกอบรมเจ้าหน้าที่ผู้ใช้งาน', 'สนับสนุน Go-live & Cut-over', 'จัดทำ User Manual'],
     requirements: ['Implementation ≥ 2 ปี', 'เคยติดตั้ง HIS / ERP', 'ทักษะการสอน & สื่อสาร', 'Travel ต่างจังหวัดได้'],
   },
   {
     id: 'support', role: 'Support / Helpdesk', level: 'jr',
-    icon: '🤝', color: '#a29bfe',
+    icon: '🤝', color: '#a29bfe', salary: 25000,
     jd: ['รับ Ticket & แก้ปัญหาเบื้องต้น', 'ประสานงาน User ↔ Dev Team', 'จัดทำ FAQ & Knowledge Base', 'ติดตาม SLA'],
     requirements: ['Support ≥ 1 ปี', 'สื่อสารดี ใจเย็น', 'IT พื้นฐาน', 'Healthcare (preferred)'],
   },
@@ -158,14 +164,14 @@ const PEOPLE = [
 // Columns for the org chart (exclude PM — PM sits above all)
 const COLUMNS = [
   {
-    label: 'Solution Analyst', color: '#f39c12', ids: ['sa-senior', 'sa', 'devops'],
+    label: 'System Analyst', color: '#f39c12', ids: ['sa-senior', 'sa', 'devops'],
     sub: { label: 'QA / Test', color: '#00b894', ids: ['qa-lead', 'qa-tester'] },
   },
   {
     label: 'Business Analyst', color: '#6c5ce7', ids: ['ba-lead', 'ba'],
     sub: { label: 'Support & Trainer', color: '#a29bfe', ids: ['trainer', 'support'] },
   },
-  { label: 'UX / UI', color: '#fd79a8', ids: ['ux-lead', 'ui'] },
+  { label: 'UX / UI', color: '#fd79a8', ids: ['ux-lead', 'ui', 'ui-2'] },
   {
     label: 'Backend Dev', color: '#e17055', ids: ['be-lead', 'be-mid-1', 'be-mid-2', 'be-jr'],
     sub: { label: 'Integration', color: '#00cec9', ids: ['integration'] },
@@ -209,19 +215,32 @@ function JDTooltip({ person, anchorRect }) {
         }}>
           {person.icon}
         </div>
-        <div>
+        <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: '#fff', fontFamily: "'Kanit', sans-serif", lineHeight: 1.3 }}>
             {person.role}
           </div>
-          <span style={{
-            fontSize: 9, fontWeight: 800,
-            background: `${person.color}30`, color: person.color,
-            padding: '1px 8px', borderRadius: 20,
-            border: `1px solid ${person.color}55`,
-            letterSpacing: 0.5,
-          }}>
-            {person.level === 'lead' ? 'Lead / Senior' : person.level === 'mid' ? 'Mid Level' : 'Junior'}
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 3, flexWrap: 'wrap' }}>
+            <span style={{
+              fontSize: 9, fontWeight: 800,
+              background: `${person.color}30`, color: person.color,
+              padding: '1px 8px', borderRadius: 20,
+              border: `1px solid ${person.color}55`,
+              letterSpacing: 0.5,
+            }}>
+              {person.level === 'lead' ? 'Lead / Senior' : person.level === 'mid' ? 'Mid Level' : 'Junior'}
+            </span>
+            {person.salary && (
+              <span style={{
+                fontSize: 9, fontWeight: 800,
+                background: 'rgba(46,213,115,0.15)', color: '#2ed573',
+                padding: '1px 8px', borderRadius: 20,
+                border: '1px solid rgba(46,213,115,0.35)',
+                letterSpacing: 0.3, fontFamily: "'JetBrains Mono', monospace",
+              }}>
+                {person.salary.toLocaleString()} บาท/เดือน
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
@@ -396,15 +415,15 @@ export default function PageTeam() {
     <PageWrapper>
       <PageHeader
         title="Team Structure"
-        subtitle="โครงสร้างทีมพัฒนาระบบ HIS ทั้งหมด 21 ตำแหน่ง — ชี้เมาส์ที่ตำแหน่งเพื่อดู JD & Requirements"
+        subtitle="โครงสร้างทีมพัฒนาระบบ HIS ทั้งหมด 22 ตำแหน่ง — ชี้เมาส์ที่ตำแหน่งเพื่อดู JD & Requirements"
         emoji="👥"
-        badge={{ title: '21 คน', sub: '10 Functions' }}
+        badge={{ title: '22 คน', sub: '10 Functions' }}
       />
 
       <JDTooltip person={tooltip?.person} anchorRect={tooltip?.rect} />
 
       <GlassCard style={{ padding: '24px 20px' }}>
-        <SectionTitle>ORGANIZATION CHART — 21 Positions</SectionTitle>
+        <SectionTitle>ORGANIZATION CHART — 22 Positions</SectionTitle>
 
         {/* ── Org chart — single scrollable container ── */}
         <div style={{ overflowX: 'auto' }}>

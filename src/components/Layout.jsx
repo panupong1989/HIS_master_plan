@@ -81,6 +81,8 @@ export default function Layout({ children }) {
 
   const singleNavItems = [
     { id: 'team', path: '/team', label: 'Team', emoji: '👥', color: '#2ed573' },
+    { id: 'workflow', path: '/workflow', label: 'Workflow', emoji: '🔄', color: '#fd79a8' },
+    { id: 'cost', path: '/cost', label: 'Est. Cost', emoji: '💰', color: '#fdcb6e' },
     { id: 'plan', path: '/plan', label: 'Plan', emoji: '📅', color: '#ffa502' },
     { id: 'dashboard', path: '/dashboard', label: 'Dashboard', emoji: '📊', color: '#0984e3' },
   ]

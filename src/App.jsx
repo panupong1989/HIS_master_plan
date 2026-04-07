@@ -13,6 +13,8 @@ import PagePlan from './pages/PagePlan'
 import PageDashboard from './pages/PageDashboard'
 import PageHISExample from './pages/PageHISExample'
 import PageHISIntro from './pages/PageHISIntro'
+import PageWorkflow from './pages/PageWorkflow'
+import PageCost from './pages/PageCost'
 
 export default function App() {
   return (
@@ -28,9 +30,11 @@ export default function App() {
         <Route path="/finance" element={<Page7Finance />} />
         <Route path="/integration" element={<Page8Integration />} />
         <Route path="/team" element={<PageTeam />} />
+        <Route path="/workflow" element={<PageWorkflow />} />
+        <Route path="/cost" element={<PageCost />} />
         <Route path="/plan" element={<PagePlan />} />
         <Route path="/dashboard" element={<PageDashboard />} />
-        <Route path="/his-example" element={<Navigate to="/his-example/intro" replace />} />
+<Route path="/his-example" element={<Navigate to="/his-example/intro" replace />} />
         <Route path="/his-example/intro" element={<PageHISIntro />} />
         <Route path="/his-example/:screenId" element={<PageHISExample />} />
         <Route path="*" element={<Navigate to="/" replace />} />
